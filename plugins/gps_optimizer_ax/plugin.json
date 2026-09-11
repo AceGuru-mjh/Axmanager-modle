@@ -1,0 +1,73 @@
+{
+  "id": "gps_optimizer_ax",
+  "name": "定位模式与辅助定位",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统工具",
+  "summary": "定位模式、定位源与扫描辅助开关（GPS 更新频率需 root，已说明）",
+  "description": "免root定位管理 location_mode定位模式 location_providers_allowed定位源 Wi-Fi与蓝牙扫描辅助定位 三档高精度导航/均衡日常/省电低功耗 实时定位状态与最近定位信息",
+  "subtitle": "定位模式 · 定位源 · 扫描辅助",
+  "accent": "#34d399",
+  "accent2": "#059669",
+  "chips": ["location_mode", "providers", "扫描辅助", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于定位精度",
+        "text": "GPS 芯片的更新频率与精度阈值由 HAL 和厂商配置决定，免 root 无法调整，也没有可写的定位精度属性。本插件控制的是系统层面的定位模式、允许的定位源，以及用于辅助定位的 Wi-Fi / 蓝牙扫描开关。"
+      },
+      {
+        "type": "metrics",
+        "title": "定位状态",
+        "verb": "status",
+        "interval": 10000,
+        "fields": [
+          { "key": "mode", "label": "定位模式", "icon": "📍" },
+          { "key": "providers", "label": "定位源", "icon": "🛰" },
+          { "key": "wifiscan", "label": "Wi-Fi 扫描", "icon": "📶" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "定位策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "high",
+            "icon": "🛰",
+            "title": "高精度导航",
+            "desc": "GPS 与网络定位并用，开启扫描辅助",
+            "tags": ["模式 3 高精度", "GPS + 网络", "扫描辅助开启", "耗电较高"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡日常",
+            "desc": "GPS 与网络定位并用，关闭后台扫描",
+            "tags": ["模式 3 高精度", "GPS + 网络", "关闭后台扫描"]
+          },
+          {
+            "id": "saving",
+            "icon": "🔋",
+            "title": "省电低功耗",
+            "desc": "仅使用网络定位，关闭全部扫描",
+            "tags": ["模式 2 省电", "仅网络定位", "精度下降", "最低耗电"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [
+          { "icon": "📍", "label": "定位状态", "verb": "state" },
+          { "icon": "🗺", "label": "最近定位", "verb": "lastloc" }
+        ]
+      }
+    ]
+  }
+}

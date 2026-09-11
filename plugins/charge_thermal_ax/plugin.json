@@ -1,0 +1,75 @@
+{
+  "id": "charge_thermal_ax",
+  "name": "充电温控与耗电策略",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "覆盖温控节流档位、省电触发阈值与充电保持唤醒（充电电流需 root）",
+  "description": "免root温控 cmd thermalservice节流档位覆盖 省电模式触发阈值low_power_trigger_level 自适应电池 充电保持唤醒 三档快充均衡/低温慢充/均衡 实时电池温度电压电流",
+  "subtitle": "温控覆盖 · 省电阈值 · 电池实时数据",
+  "accent": "#fbbf24",
+  "accent2": "#f59e0b",
+  "chips": ["thermalservice", "low_power", "实时电流", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于充电速度",
+        "text": "充电电流由内核充电驱动控制，节点位于 /sys/class/power_supply，需要 root 才能修改，免 root 环境无法调节。本插件通过覆盖系统温控节流档位来影响「什么时候开始降功率」，这是免 root 下对充电速度唯一有效的调节维度。"
+      },
+      {
+        "type": "metrics",
+        "title": "电池实时数据",
+        "verb": "status",
+        "interval": 4000,
+        "fields": [
+          { "key": "level", "label": "电量", "unit": "%", "bar": true, "icon": "🔋" },
+          { "key": "temp", "label": "温度", "unit": "℃", "icon": "🌡" },
+          { "key": "cur", "label": "电流", "unit": "mA", "icon": "🔌" },
+          { "key": "volt", "label": "电压", "unit": "mV", "icon": "⚡" },
+          { "key": "status", "label": "充电状态", "icon": "📊" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "温控策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "fast",
+            "icon": "⚡",
+            "title": "快充均衡",
+            "desc": "解除节流限制，避免充电途中降功率",
+            "tags": ["节流 0 档", "关闭省电模式", "关闭自适应电池", "发热较高"]
+          },
+          {
+            "id": "cool",
+            "icon": "❄️",
+            "title": "低温慢充",
+            "desc": "加强节流，控制充电发热",
+            "tags": ["节流 4 档", "开启省电模式", "30% 自动省电", "温度更低"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡",
+            "desc": "温控交由系统按原设计托管",
+            "tags": ["恢复系统托管", "15% 自动省电", "自适应电池开启"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [
+          { "icon": "🔋", "label": "电池信息", "verb": "battinfo" },
+          { "icon": "🌡", "label": "温控状态", "verb": "thermal" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,0 @@
-id=ad_block_ax
-name=全局表层广告屏蔽
-version=1.0.0
-versionCode=1
-author=MJH
-description=ADB表层停用系统广告服务/厂商推送/广告分析，hosts拦截广告域名，三档强效/轻度/原厂切换，M3可视化面板
-axeronPlugin=1

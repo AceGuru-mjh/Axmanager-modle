@@ -1,0 +1,56 @@
+{
+  "id": "apk_manager_ax",
+  "name": "APK 提取与权限审计",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "导出已安装 APK、审计危险权限、查看应用清单（系统应用卸载需 root）",
+  "description": "免root应用管理 pm path导出已安装APK到sdcard 危险权限审计与全量扫描 应用清单与版本体积 单个应用卸载 系统应用与关键组件拒绝操作",
+  "subtitle": "导出 APK · 权限审计 · 应用清单",
+  "accent": "#22d3ee",
+  "accent2": "#0891b2",
+  "chips": ["pm path", "权限审计", "批量导出", "只读安全"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "能力范围",
+        "text": "shell 可以读取已安装应用的 APK 文件并导出到公共存储，也可以读取权限授予情况做审计。卸载仅对第三方应用有效，系统应用与关键组件会被拒绝并如实提示。"
+      },
+      {
+        "type": "metrics",
+        "title": "概览",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "apps", "label": "第三方应用", "icon": "📱" },
+          { "key": "out", "label": "导出目录", "icon": "📂" }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "操作",
+        "id": "target",
+        "label": "目标包名",
+        "hint": "填写完整包名，例如 com.example.app",
+        "placeholder": "com.example.app",
+        "verb": "audit",
+        "buttonLabel": "审计权限",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "批量工具",
+        "items": [
+          { "icon": "📤", "label": "导出全部 APK", "verb": "exportall", "refresh": true },
+          { "icon": "🛡", "label": "危险权限扫描", "verb": "auditall" },
+          { "icon": "📋", "label": "应用清单", "verb": "list" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,0 @@
-id=system_ui_tweak_ax
-name=系统界面美化微调
-version=1.0.0
-versionCode=1
-author=MJH
-description=自定义DPI/动画缩放/刷新率策略/状态栏高度，三档清爽高性能/原生均衡/护眼省电，M3可视化面板
-axeronPlugin=1

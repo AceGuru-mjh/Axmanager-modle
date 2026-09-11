@@ -1,0 +1,73 @@
+{
+  "id": "sensor_tuner_ax",
+  "name": "传感器功能与体感",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "管控调用传感器的体感功能以降低待机耗电（采样率需 root，已说明）",
+  "description": "免root传感器管理 抬起亮屏/手势唤醒/环境显示/抬手唤醒/自动旋转开关 关闭持续采样显著降低待机耗电 三档功能全开/日常/省电 查看传感器清单与当前开关",
+  "subtitle": "抬起亮屏 · 手势唤醒 · 自动旋转 · 传感器清单",
+  "accent": "#2dd4bf",
+  "accent2": "#14b8a6",
+  "chips": ["doze_pulse", "wake_gesture", "省电", "sensorservice"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于采样率",
+        "text": "传感器采样率由 HAL 与驱动决定，免 root 无法修改。真正影响耗电的是「屏幕熄灭后是否仍在持续采样」，本插件通过关闭抬起亮屏、手势唤醒等持续监听类功能来实现省电，效果可感知且完全可逆。"
+      },
+      {
+        "type": "metrics",
+        "title": "状态",
+        "verb": "status",
+        "interval": 10000,
+        "fields": [
+          { "key": "count", "label": "传感器数量", "icon": "📡" },
+          { "key": "lift", "label": "抬起亮屏", "icon": "🤚" },
+          { "key": "rotate", "label": "自动旋转", "icon": "🔄" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "体感策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "full",
+            "icon": "📡",
+            "title": "功能全开",
+            "desc": "启用全部体感功能与自动旋转",
+            "tags": ["抬起亮屏", "手势唤醒", "双击唤醒", "自动旋转", "耗电较高"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "日常",
+            "desc": "保留抬起亮屏与自动旋转，关闭手势唤醒",
+            "tags": ["抬起亮屏", "自动旋转", "关闭手势唤醒"]
+          },
+          {
+            "id": "saving",
+            "icon": "🔋",
+            "title": "省电",
+            "desc": "关闭全部持续监听传感器的体感功能",
+            "tags": ["关闭环境显示", "关闭抬起亮屏", "关闭自动旋转", "最低待机耗电"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "查看",
+        "items": [
+          { "icon": "📡", "label": "传感器清单", "verb": "list" },
+          { "icon": "🔍", "label": "当前开关", "verb": "state" }
+        ]
+      }
+    ]
+  }
+}

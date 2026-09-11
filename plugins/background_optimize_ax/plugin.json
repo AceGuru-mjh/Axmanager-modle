@@ -1,0 +1,76 @@
+{
+  "id": "background_optimize_ax",
+  "name": "后台活动管控",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "扩展插件",
+  "summary": "待机分组、后台运行与唤醒锁管控，通讯应用白名单豁免",
+  "description": "免root后台管控 am set-standby-bucket待机分组 appops RUN_IN_BACKGROUND/RUN_ANY_IN_BACKGROUND/WAKE_LOCK 通讯应用白名单豁免 三档激进/均衡/宽松 查看应用分组与唤醒锁持有情况",
+  "subtitle": "待机分组 · 后台运行 · 唤醒锁 · 白名单",
+  "accent": "#a78bfa",
+  "accent2": "#7c3aed",
+  "chips": ["standby bucket", "WAKE_LOCK", "白名单", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "管控维度",
+        "text": "待机分组决定系统在资源紧张时优先回收哪些应用，后台运行权限决定应用能否在后台执行任务，唤醒锁决定应用能否在息屏后唤醒设备。三者结合即可覆盖绝大部分后台耗电场景，且全部可逆。"
+      },
+      {
+        "type": "metrics",
+        "title": "状态",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "apps", "label": "第三方应用", "icon": "📱" },
+          { "key": "locks", "label": "唤醒锁记录", "icon": "🔒" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "管控力度",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "aggressive",
+            "icon": "🔋",
+            "title": "激进管控",
+            "desc": "限制后台运行与唤醒锁，收紧待机分组",
+            "tags": ["restricted 分组", "禁止后台运行", "禁止唤醒锁", "省电最明显"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡管控",
+            "desc": "常用分组，限制非常驻后台活动",
+            "tags": ["working_set 分组", "允许后台运行", "限制常驻后台"]
+          },
+          {
+            "id": "loose",
+            "icon": "🕊",
+            "title": "宽松策略",
+            "desc": "恢复活跃分组与全部后台权限",
+            "tags": ["active 分组", "恢复全部权限", "体验优先"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "应用待机分组",
+        "verb": "list",
+        "limit": 60,
+        "empty": "未安装第三方应用"
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [{ "icon": "🔒", "label": "唤醒锁持有情况", "verb": "wakelock" }]
+      }
+    ]
+  }
+}

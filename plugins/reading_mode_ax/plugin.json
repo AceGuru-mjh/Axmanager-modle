@@ -1,0 +1,77 @@
+{
+  "id": "reading_mode_ax",
+  "name": "阅读与护眼模式",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "显示与音频",
+  "summary": "灰度显示、夜间色温、色彩反转与亮度组合的护眼方案",
+  "description": "免root护眼模式 灰度显示accessibility daltonizer 夜间显示night_display色温调节 色彩反转 亮度与自动亮度控制 三档标准默认/沉浸阅读/极暗护眼 实时显示状态",
+  "subtitle": "灰度 · 色温 · 色彩反转 · 亮度组合",
+  "accent": "#a3e635",
+  "accent2": "#65a30d",
+  "chips": ["灰度显示", "night_display", "色彩反转", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "护眼原理",
+        "text": "灰度显示由系统无障碍的色彩校正实现，可大幅降低阅读时的色彩刺激；夜间显示通过调整色温减少蓝光。两者都是系统原生能力，效果即时可见且随时可关闭。"
+      },
+      {
+        "type": "metrics",
+        "title": "护眼状态",
+        "verb": "status",
+        "interval": 6000,
+        "fields": [
+          { "key": "gray", "label": "灰度显示", "icon": "⚫" },
+          { "key": "night", "label": "夜间显示", "icon": "🌙" },
+          { "key": "temp", "label": "色温", "unit": "K", "icon": "🎨" },
+          { "key": "bright", "label": "亮度", "unit": "/255", "icon": "☀️" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "护眼档位",
+        "id": "profile",
+        "value": "standard",
+        "items": [
+          {
+            "id": "standard",
+            "icon": "🎨",
+            "title": "标准默认",
+            "desc": "关闭灰度与色彩辅助，恢复自动亮度",
+            "tags": ["关闭灰度", "关闭夜间显示", "自动亮度"]
+          },
+          {
+            "id": "reading",
+            "icon": "📖",
+            "title": "沉浸阅读",
+            "desc": "灰度显示配合暖色温，适合长时间阅读",
+            "tags": ["灰度显示", "色温 2700K", "亮度 120", "降低视觉刺激"]
+          },
+          {
+            "id": "dark",
+            "icon": "🌑",
+            "title": "极暗护眼",
+            "desc": "最低亮度配合最暖色温",
+            "tags": ["亮度 30", "色温 1800K", "夜间显示开启", "强光下需调回"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "快捷开关",
+        "items": [
+          { "icon": "⚫", "label": "开启灰度", "verb": "grayon", "showLog": false },
+          { "icon": "🎨", "label": "关闭灰度", "verb": "grayoff", "showLog": false },
+          { "icon": "🔃", "label": "色彩反转", "verb": "invert", "showLog": false },
+          { "icon": "↩️", "label": "恢复标准", "verb": "restore", "showLog": false },
+          { "icon": "🔍", "label": "查看状态", "verb": "state" }
+        ]
+      }
+    ]
+  }
+}

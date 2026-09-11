@@ -1,7 +1,0 @@
-id=charge_thermal_ax
-name=充电温控优化
-version=1.0.0
-versionCode=1
-author=MJH
-description=充电电流限制/电池高温阈值/过热降功率/息屏充电优化 三档快充均衡/低温慢充/极限温控 一键切换
-axeronPlugin=1

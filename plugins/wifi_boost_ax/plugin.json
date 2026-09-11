@@ -1,0 +1,73 @@
+{
+  "id": "wifi_boost_ax",
+  "name": "Wi-Fi 保持与扫描策略",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "summary": "减少系统断网与自动切网行为，提升实际可用体验（信号强度需 root）",
+  "description": "免rootWi-Fi优化 息屏保持Wi-Fi策略wifi_sleep_policy 关闭网络看门狗自动切网 avoid_bad_wifi 后台扫描管控 三档极速稳定/均衡日常/深度省电 实时信号强度与链路速率",
+  "subtitle": "息屏保持 · 关闭自动切网 · 扫描管控",
+  "accent": "#34d399",
+  "accent2": "#059669",
+  "chips": ["wifi_sleep_policy", "watchdog", "avoid_bad_wifi", "实时 RSSI"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于信号强度",
+        "text": "Wi-Fi 发射功率与信号阈值由驱动和固件决定，免 root 无法调整，不存在「增强信号」的开关。真正影响体验的是系统是否会主动断网或切换到蜂窝网络，本插件正是针对这一点进行优化。"
+      },
+      {
+        "type": "metrics",
+        "title": "Wi-Fi 状态",
+        "verb": "status",
+        "interval": 6000,
+        "fields": [
+          { "key": "ssid", "label": "当前网络", "icon": "📶" },
+          { "key": "rssi", "label": "信号强度", "unit": "dBm", "icon": "📡" },
+          { "key": "speed", "label": "链路速率", "unit": "Mbps", "icon": "🚀" },
+          { "key": "sleep", "label": "息屏策略", "icon": "😴" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "Wi-Fi 策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "gaming",
+            "icon": "🎮",
+            "title": "极速稳定",
+            "desc": "息屏保持 Wi-Fi，关闭自动切网与劣质网络检测",
+            "tags": ["息屏不停网", "关闭看门狗", "关闭劣质网络检测", "稳定优先"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡日常",
+            "desc": "系统默认策略，保留自动切网能力",
+            "tags": ["息屏可断网", "看门狗开启", "保留后台扫描"]
+          },
+          {
+            "id": "saving",
+            "icon": "🔋",
+            "title": "深度省电",
+            "desc": "息屏断网，关闭全部 Wi-Fi 与蓝牙扫描",
+            "tags": ["息屏断网", "关闭全部扫描", "关闭可用网络提醒"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [
+          { "icon": "📶", "label": "Wi-Fi 状态", "verb": "wifidump" },
+          { "icon": "🔍", "label": "已保存网络", "verb": "scans" }
+        ]
+      }
+    ]
+  }
+}

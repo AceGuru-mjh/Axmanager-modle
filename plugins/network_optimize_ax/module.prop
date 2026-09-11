@@ -1,7 +1,0 @@
-id=network_optimize_ax
-name=网络优化工具
-version=1.0.0
-versionCode=1
-author=MJH
-description=TCP缓冲参数/网络延迟prop/5G4G切换策略/关闭后台网络扫描/停用网络收集服务 三档极速低延迟/均衡省电/纯4G省电
-axeronPlugin=1

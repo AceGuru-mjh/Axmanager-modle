@@ -1,7 +1,0 @@
-id=ota_guard_ax
-name=OTA更新阻断守护
-version=1.0.0
-versionCode=1
-author=MJH
-description=扫描冻结系统更新服务/OTA组件/厂商静默升级 三档全面阻断/轻度拦截/临时放行 后台守护自动阻止更新服务被唤醒
-axeronPlugin=1

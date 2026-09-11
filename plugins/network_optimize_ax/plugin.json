@@ -1,0 +1,74 @@
+{
+  "id": "network_optimize_ax",
+  "name": "网络参数与私有 DNS",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "网络优化",
+  "summary": "私有 DNS (DoT) / 息屏网络策略 / 后台扫描管控（TCP 参数需 root）",
+  "description": "免root网络优化 私有DNS private_dns_mode与指定主机名 移动数据常连 息屏WiFi策略 关闭后台Wi-Fi与蓝牙扫描 三档极速低延迟/均衡省电/纯省电 连通性测试与链路信息",
+  "subtitle": "私有 DNS · 息屏策略 · 扫描管控 · 链路信息",
+  "accent": "#60a5fa",
+  "accent2": "#2563eb",
+  "chips": ["Private DNS", "DoT", "wifi_sleep_policy", "ping 测试"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于 TCP 参数",
+        "text": "TCP 拥塞算法与收发缓冲位于 /proc/sys/net，修改需要 root，免 root 环境不可写。本插件改为控制系统的私有 DNS、息屏后的网络保持策略与后台扫描行为，这些同样是影响实际网络体验的关键因素且真实生效。"
+      },
+      {
+        "type": "metrics",
+        "title": "链路状态",
+        "verb": "status",
+        "interval": 6000,
+        "fields": [
+          { "key": "dnsmode", "label": "DNS 模式", "icon": "🔐" },
+          { "key": "dnshost", "label": "DNS 主机", "icon": "🌐" },
+          { "key": "rssi", "label": "信号强度", "unit": "dBm", "icon": "📶" },
+          { "key": "speed", "label": "链路速率", "unit": "Mbps", "icon": "🚀" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "网络策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "fast",
+            "icon": "🚀",
+            "title": "极速低延迟",
+            "desc": "移动数据常连，息屏保持 Wi-Fi，关闭扫描节流",
+            "tags": ["数据常连", "息屏保持 Wi-Fi", "关闭后台扫描", "耗电略增"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡省电",
+            "desc": "系统默认扫描与息屏策略，自动私有 DNS",
+            "tags": ["自动私有 DNS", "息屏可断网", "保留后台扫描"]
+          },
+          {
+            "id": "saving",
+            "icon": "🔋",
+            "title": "纯省电",
+            "desc": "息屏断开扫描，关闭常连与私有 DNS",
+            "tags": ["关闭私有 DNS", "息屏断扫描", "关闭常连", "可能影响消息"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "工具",
+        "items": [
+          { "icon": "📡", "label": "连通性测试", "verb": "ping" },
+          { "icon": "🌐", "label": "链路信息", "verb": "dnsdump" }
+        ]
+      }
+    ]
+  }
+}

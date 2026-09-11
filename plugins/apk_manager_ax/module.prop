@@ -1,7 +1,0 @@
-id=apk_manager_ax
-name=APK管理与权限审计
-version=1.0.0
-versionCode=1
-author=MJH
-description=提取已安装APK/审计应用权限列表(危险权限高亮)/按权限分组查看/卸载闲置应用 Shell UID穿透沙箱提取APK文件
-axeronPlugin=1

@@ -1,0 +1,67 @@
+{
+  "id": "logcat_toolbox_ax",
+  "name": "日志查看与导出",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统工具",
+  "summary": "按级别/标签/关键词过滤日志，导出日志与系统诊断信息",
+  "description": "免root日志工具 读取最近日志与错误级别过滤 按标签或关键词过滤 清空全部日志缓冲区 导出完整日志到sdcard 生成系统诊断信息包 已导出文件列表",
+  "subtitle": "过滤 · 导出 · 诊断包 · 清空缓冲",
+  "accent": "#818cf8",
+  "accent2": "#4f46e5",
+  "chips": ["logcat", "标签过滤", "导出文件", "诊断包"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "日志权限",
+        "text": "Android 4.1 起第三方应用无法读取其他应用日志，但 ADB/shell 身份仍拥有读取权限，因此本插件可以直接访问完整的日志缓冲区。"
+      },
+      {
+        "type": "metrics",
+        "title": "概览",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "lines", "label": "缓冲区行数", "icon": "📜" },
+          { "key": "files", "label": "已导出文件", "icon": "💾" }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "过滤",
+        "id": "kw",
+        "label": "标签或关键词",
+        "hint": "输入日志标签（如 ActivityManager）后点标签过滤，或输入任意关键词后点关键词过滤",
+        "placeholder": "ActivityManager",
+        "verb": "tag",
+        "buttonLabel": "按标签过滤",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "读取",
+        "items": [
+          { "icon": "📜", "label": "最近日志", "verb": "tail" },
+          { "icon": "❌", "label": "仅错误", "verb": "error" },
+          { "icon": "⚠️", "label": "警告以上", "verb": "warn" },
+          { "icon": "🔍", "label": "关键词搜索", "verb": "grep" }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "导出与维护",
+        "items": [
+          { "icon": "💾", "label": "导出日志", "verb": "export", "showLog": false, "refresh": true },
+          { "icon": "🩺", "label": "诊断信息包", "verb": "bugreport", "refresh": true },
+          { "icon": "🗑", "label": "清空缓冲区", "verb": "clear", "showLog": false, "confirm": "将清空全部日志缓冲区，之后无法查看历史日志。" },
+          { "icon": "📋", "label": "导出文件列表", "verb": "list" }
+        ]
+      }
+    ]
+  }
+}

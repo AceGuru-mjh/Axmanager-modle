@@ -1,0 +1,74 @@
+{
+  "id": "swap_tuner_ax",
+  "name": "内存水位与后台进程",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "以缓存进程上限与冻结器调节内存压力（ZRAM 需 root，已如实说明）",
+  "description": "免root内存管理 缓存进程上限 max_cached_processes 缓存进程冻结器 自适应电池 trim-caches回收 三档多任务保活/均衡/激进回收 实时内存水位显示",
+  "subtitle": "进程上限 · 冻结器 · 缓存回收",
+  "accent": "#38bdf8",
+  "accent2": "#0ea5e9",
+  "chips": ["activity_manager", "freezer", "trim-caches", "实时水位"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于 Swap / ZRAM",
+        "text": "ZRAM 容量与 swappiness 位于 /sys 与 /proc/sys/vm，修改需要 root，AxManager 环境下不可写。本插件改为控制系统允许存活的后台进程数量，这是免 root 下影响内存水位最有效的手段。"
+      },
+      {
+        "type": "metrics",
+        "title": "内存水位",
+        "verb": "status",
+        "interval": 4000,
+        "fields": [
+          { "key": "used", "label": "内存占用", "unit": "%", "bar": true, "icon": "🧠" },
+          { "key": "avail", "label": "可用", "unit": "MB", "icon": "✅" },
+          { "key": "total", "label": "总容量", "unit": "MB", "icon": "📦" },
+          { "key": "maxproc", "label": "进程上限", "icon": "🔢" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "内存策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "multitask",
+            "icon": "🗂",
+            "title": "多任务保活",
+            "desc": "放宽缓存进程上限，关闭冻结器，切换更顺滑",
+            "tags": ["上限 128", "冻结器关闭", "关闭自适应电池", "占用内存更多"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡日常",
+            "desc": "标准进程上限，启用冻结器",
+            "tags": ["上限 32", "冻结器开启", "自适应电池"]
+          },
+          {
+            "id": "aggressive",
+            "icon": "🧹",
+            "title": "激进回收",
+            "desc": "收紧进程上限并立即回收缓存与后台进程",
+            "tags": ["上限 12", "立即回收缓存", "结束后台进程", "省内存"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "工具",
+        "items": [
+          { "icon": "🧹", "label": "立即回收", "verb": "trim", "showLog": false },
+          { "icon": "📊", "label": "内存详情", "verb": "meminfo" }
+        ]
+      }
+    ]
+  }
+}

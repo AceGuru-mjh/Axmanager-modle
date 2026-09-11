@@ -1,7 +1,0 @@
-id=game_toolbox_ax
-name=游戏辅助工具箱合集
-version=1.0.0
-versionCode=1
-author=MJH
-description=整合GPU帧率调度/温控阈值/后台冻结/触控采样/动态分辨率 四套预设极致性能/均衡游戏/轻度省电/温控静音 白名单保护主流手游
-axeronPlugin=1

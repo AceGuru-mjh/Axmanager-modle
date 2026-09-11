@@ -1,0 +1,76 @@
+{
+  "id": "bluetooth_audio_ax",
+  "name": "蓝牙与无线音频",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "网络优化",
+  "summary": "蓝牙开关、后台扫描、媒体与 SCO 音量、声道平衡（编解码需 root）",
+  "description": "免root蓝牙音频 svc bluetooth开关 后台蓝牙扫描ble_scan_always_enabled media volume媒体与蓝牙SCO音量 master_balance声道平衡 三档高音质/标准均衡/通话优先 实时蓝牙与音量状态",
+  "subtitle": "蓝牙开关 · 音量 · 声道平衡 · 扫描管控",
+  "accent": "#818cf8",
+  "accent2": "#4f46e5",
+  "chips": ["svc bluetooth", "media volume", "master_balance", "SCO 音量"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于音频编码",
+        "text": "蓝牙音频编码器（SBC / AAC / LDAC / aptX）与码率由蓝牙协议栈和厂商属性控制，切换需要 root 或厂商私有接口，免 root 环境无法修改。开发者选项中的编码切换同样受此限制。本插件提供的是免 root 下真实可用的音量、声道与扫描管控。"
+      },
+      {
+        "type": "metrics",
+        "title": "音频状态",
+        "verb": "status",
+        "interval": 8000,
+        "fields": [
+          { "key": "bton", "label": "蓝牙", "icon": "📶" },
+          { "key": "music", "label": "媒体音量", "icon": "🎵" },
+          { "key": "sco", "label": "蓝牙通话音量", "icon": "📞" },
+          { "key": "balance", "label": "声道平衡", "icon": "⚖️" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "音频策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "hifi",
+            "icon": "🎧",
+            "title": "高音质",
+            "desc": "关闭蓝牙后台扫描，抬升媒体与通话音量",
+            "tags": ["关闭后台扫描", "媒体音量 12", "SCO 音量 12", "声道居中"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "标准均衡",
+            "desc": "保留扫描能力，音量适中",
+            "tags": ["保留扫描", "媒体音量 8", "SCO 音量 8"]
+          },
+          {
+            "id": "call",
+            "icon": "📞",
+            "title": "通话优先",
+            "desc": "抬升蓝牙通话音量，降低媒体音量",
+            "tags": ["SCO 音量 15", "媒体音量 5", "适合车载与耳机通话"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "快捷控制",
+        "items": [
+          { "icon": "📶", "label": "开启蓝牙", "verb": "bton", "showLog": false },
+          { "icon": "📴", "label": "关闭蓝牙", "verb": "btoff", "showLog": false },
+          { "icon": "🔊", "label": "音量明细", "verb": "volinfo" },
+          { "icon": "🔍", "label": "蓝牙状态", "verb": "btdump" }
+        ]
+      }
+    ]
+  }
+}

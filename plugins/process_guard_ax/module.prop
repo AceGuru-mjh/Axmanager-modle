@@ -1,7 +1,0 @@
-id=process_guard_ax
-name=进程与后台守护
-version=1.0.0
-versionCode=1
-author=MJH
-description=实时查看TOP进程CPU内存占用/一键结束指定进程/守护目标进程防OOM杀/白名单保护 三档守护模式/诊断模式/清理模式
-axeronPlugin=1

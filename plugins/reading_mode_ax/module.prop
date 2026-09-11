@@ -1,7 +1,0 @@
-id=reading_mode_ax
-name=护眼模式增强
-version=1.0.0
-versionCode=1
-author=MJH
-description=阅读模式/灰度显示/色彩反转/夜间色温/降低白点/蓝光过滤强度 三档标准默认/沉浸阅读/极暗护眼
-axeronPlugin=1

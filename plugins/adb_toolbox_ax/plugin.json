@@ -1,0 +1,71 @@
+{
+  "id": "adb_toolbox_ax",
+  "name": "ADB 常用工具箱",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统工具",
+  "summary": "截图、录屏、DPI/分辨率、网络开关、重启 SystemUI 与设备信息",
+  "description": "免root工具箱 screencap截图 screenrecord录屏10秒 wm density与size调整及恢复 svc wifi/data/nfc/power开关 重启SystemUI 设备信息查看 全部使用系统内置命令",
+  "subtitle": "截图 · 录屏 · DPI · 网络开关 · 设备信息",
+  "accent": "#4ade80",
+  "accent2": "#16a34a",
+  "chips": ["screencap", "screenrecord", "wm", "svc"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "使用提示",
+        "text": "全部命令均为系统内置工具，输出到 /sdcard 根目录。修改 DPI 或分辨率后若显示异常，点击「恢复显示参数」即可还原，也可重启设备恢复。"
+      },
+      {
+        "type": "metrics",
+        "title": "设备信息",
+        "verb": "status",
+        "interval": 30000,
+        "fields": [
+          { "key": "model", "label": "机型", "icon": "📱" },
+          { "key": "android", "label": "Android", "icon": "🤖" },
+          { "key": "size", "label": "分辨率", "icon": "🖥" },
+          { "key": "density", "label": "DPI", "icon": "📐" }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "显示参数",
+        "id": "dpiv",
+        "label": "DPI 值",
+        "hint": "输入数字如 420，或输入 reset 恢复默认",
+        "placeholder": "420 或 reset",
+        "verb": "dpi",
+        "buttonLabel": "设置 DPI",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "媒体",
+        "items": [
+          { "icon": "📷", "label": "截图", "verb": "shot", "showLog": false },
+          { "icon": "🎥", "label": "录屏 10 秒", "verb": "rec", "showLog": false },
+          { "icon": "↩️", "label": "恢复显示参数", "verb": "wmreset", "showLog": false, "refresh": true },
+          { "icon": "🔍", "label": "设备信息", "verb": "devinfo" }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "网络与系统",
+        "items": [
+          { "icon": "📶", "label": "开 Wi-Fi", "verb": "wifion", "showLog": false },
+          { "icon": "📴", "label": "关 Wi-Fi", "verb": "wifioff", "showLog": false },
+          { "icon": "📡", "label": "开数据", "verb": "dataon", "showLog": false },
+          { "icon": "🚫", "label": "关数据", "verb": "dataoff", "showLog": false },
+          { "icon": "🔄", "label": "重启 SystemUI", "verb": "ui", "showLog": false, "confirm": "将重启系统界面进程，屏幕可能短暂闪烁，不会丢失数据。" },
+          { "icon": "💡", "label": "充电常亮", "verb": "stayon", "showLog": false }
+        ]
+      }
+    ]
+  }
+}

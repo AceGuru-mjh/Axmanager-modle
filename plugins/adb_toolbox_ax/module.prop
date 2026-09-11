@@ -1,7 +1,0 @@
-id=adb_toolbox_ax
-name=ADB快捷工具箱
-version=1.0.0
-versionCode=1
-author=MJH
-description=截图保存/录屏/DPI快速切换/重启SystemUI/清除应用缓存/一键优化 独立功能按钮 WebUI工具箱面板
-axeronPlugin=1

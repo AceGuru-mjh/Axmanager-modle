@@ -1,7 +1,0 @@
-id=swap_tuner_ax
-name=虚拟内存优化
-version=1.0.0
-versionCode=1
-author=MJH
-description=Swap交换文件大小/交换倾向swappiness/ZRAM压缩算法/ZRAM写回磁盘/页面回收策略 三档性能优先/均衡日常/省电续航
-axeronPlugin=1

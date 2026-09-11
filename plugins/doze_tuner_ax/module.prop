@@ -1,7 +1,0 @@
-id=doze_tuner_ax
-name=待机功耗优化
-version=1.0.0
-versionCode=1
-author=MJH
-description=Doze深度睡眠参数/待机超时/唤醒锁抑制/后台网络限制/传感器休眠策略 三档激进省电/均衡待机/原厂默认
-axeronPlugin=1

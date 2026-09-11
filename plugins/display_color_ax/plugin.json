@@ -1,0 +1,76 @@
+{
+  "id": "display_color_ax",
+  "name": "屏幕亮度与色彩",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "显示与音频",
+  "summary": "亮度 / 自动亮度 / 夜间色温 / 灰度 / 色彩反转（饱和度需 root）",
+  "description": "免root显示调节 screen_brightness亮度 自动亮度开关 night_display夜间色温 accessibility色彩反转与灰度 三档标准原色/高亮模式/护眼低亮 实时读取全部显示设置",
+  "subtitle": "亮度 · 夜间色温 · 灰度 · 色彩反转",
+  "accent": "#fb923c",
+  "accent2": "#ea580c",
+  "chips": ["night_display", "灰度", "色彩反转", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于饱和度与色域",
+        "text": "饱和度、色域与背光曲线由 SurfaceFlinger 和显示驱动控制，需要 root 才能修改，免 root 环境无法调整。本插件提供的是系统开放且真实生效的亮度、色温与色彩辅助设置。"
+      },
+      {
+        "type": "metrics",
+        "title": "显示状态",
+        "verb": "status",
+        "interval": 6000,
+        "fields": [
+          { "key": "bright", "label": "亮度", "unit": "/255", "icon": "☀️" },
+          { "key": "auto", "label": "自动亮度", "icon": "🔆" },
+          { "key": "night", "label": "夜间显示", "icon": "🌙" },
+          { "key": "temp", "label": "色温", "unit": "K", "icon": "🎨" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "显示档位",
+        "id": "profile",
+        "value": "standard",
+        "items": [
+          {
+            "id": "standard",
+            "icon": "🎨",
+            "title": "标准原色",
+            "desc": "关闭全部色彩辅助，恢复自动亮度",
+            "tags": ["关闭色彩辅助", "自动亮度", "恢复原色"]
+          },
+          {
+            "id": "vivid",
+            "icon": "☀️",
+            "title": "高亮模式",
+            "desc": "关闭自动亮度并锁定最高亮度",
+            "tags": ["亮度 255", "关闭自动亮度", "适合户外", "耗电较高"]
+          },
+          {
+            "id": "warm",
+            "icon": "🌙",
+            "title": "护眼低亮",
+            "desc": "开启夜间显示并降低亮度",
+            "tags": ["夜间显示开启", "色温 2400K", "亮度 90", "适合夜间"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "色彩辅助",
+        "items": [
+          { "icon": "⚫", "label": "灰度显示", "verb": "gray", "showLog": false },
+          { "icon": "🔃", "label": "色彩反转", "verb": "invert", "showLog": false },
+          { "icon": "↩️", "label": "恢复默认", "verb": "reset", "showLog": false },
+          { "icon": "🔍", "label": "查看设置", "verb": "info" }
+        ]
+      }
+    ]
+  }
+}

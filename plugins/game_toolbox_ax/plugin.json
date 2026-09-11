@@ -1,0 +1,85 @@
+{
+  "id": "game_toolbox_ax",
+  "name": "游戏场景工具箱",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统工具",
+  "summary": "为游戏准备运行环境：高性能调度、节流、免打扰、释放内存（画质由游戏决定）",
+  "description": "免root游戏模式 固定高性能调度(API30+) 温控节流覆盖 游戏免打扰DND 释放后台内存 锁定旋转与高刷 四档极致性能/均衡游戏/轻度省电/温控静音 一键退出恢复",
+  "subtitle": "高性能调度 · 免打扰 · 释放内存 · 温控",
+  "accent": "#fb7185",
+  "accent2": "#e11d48",
+  "chips": ["fixed perf mode", "DND", "温控覆盖", "一键恢复"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "能做到与做不到",
+        "text": "游戏帧率与画质由游戏自身的渲染逻辑和 GPU 驱动决定，脚本无法强制提升。本插件做的是为游戏创造更好的运行环境：锁定高性能调度、避免中途降频、屏蔽通知干扰、释放后台内存。"
+      },
+      {
+        "type": "metrics",
+        "title": "运行状态",
+        "verb": "status",
+        "interval": 5000,
+        "fields": [
+          { "key": "temp", "label": "电池温度", "unit": "℃", "icon": "🌡" },
+          { "key": "level", "label": "电量", "unit": "%", "bar": true, "icon": "🔋" },
+          { "key": "zen", "label": "免打扰", "icon": "🌙" },
+          { "key": "refresh", "label": "峰值刷新率", "unit": "Hz", "icon": "📺" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "游戏档位",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "extreme",
+            "icon": "🔥",
+            "title": "极致性能",
+            "desc": "固定高性能调度，解除节流，锁定高亮",
+            "tags": ["固定高性能", "节流 0 档", "亮度最高", "发热明显"]
+          },
+          {
+            "id": "balanced",
+            "icon": "🎮",
+            "title": "均衡游戏",
+            "desc": "系统自适应调度，免打扰并释放内存",
+            "tags": ["系统自适应", "免打扰", "释放内存", "推荐"]
+          },
+          {
+            "id": "eco",
+            "icon": "🔋",
+            "title": "轻度省电",
+            "desc": "适当节流并降低亮度",
+            "tags": ["节流 2 档", "亮度 140", "免打扰"]
+          },
+          {
+            "id": "silent",
+            "icon": "❄️",
+            "title": "温控静音",
+            "desc": "强力节流控制发热与风扇噪音",
+            "tags": ["节流 4 档", "亮度 110", "温度最低"]
+          },
+          {
+            "id": "restore",
+            "icon": "↩️",
+            "title": "退出游戏模式",
+            "desc": "恢复免打扰、旋转、亮度与刷新率",
+            "tags": ["关闭免打扰", "恢复自动旋转", "恢复自动亮度"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [{ "icon": "🎮", "label": "当前状态", "verb": "gstate" }]
+      }
+    ]
+  }
+}

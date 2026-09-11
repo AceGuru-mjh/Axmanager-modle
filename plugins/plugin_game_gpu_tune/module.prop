@@ -1,7 +1,0 @@
-id=game_gpu_tune_ax
-name=机型专属手游画质调度
-version=1.0.0
-versionCode=1
-author=MJH
-description=批量修改GPU渲染/帧率/温控prop，三档性能/均衡/省电切换，M3可视化面板，适配王者荣耀/和平精英/原神/崩坏星穹铁道
-axeronPlugin=1

@@ -1,0 +1,76 @@
+{
+  "id": "doze_tuner_ax",
+  "name": "后台行为与待机分组",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "以 standby bucket 与后台运行权限管控待机耗电，通讯应用自动豁免",
+  "description": "免root待机优化 am set-standby-bucket待机分组 appops RUN_IN_BACKGROUND/WAKE_LOCK管控 通讯应用白名单豁免 三档激进省电/均衡/原厂 实时查看分组与Doze状态",
+  "subtitle": "待机分组 · 后台运行 · 唤醒锁 · 白名单豁免",
+  "accent": "#818cf8",
+  "accent2": "#6366f1",
+  "chips": ["standby bucket", "appops", "白名单", "Doze 状态"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "Doze 参数与等效手段",
+        "text": "Doze 的内部超时参数需要系统签名或 root 才能持久化修改。本插件改用系统公开的待机分组（standby bucket）与后台运行权限接口，能达到相近的省电效果。白名单内的通讯应用始终保持活跃，不会漏收消息。"
+      },
+      {
+        "type": "metrics",
+        "title": "状态",
+        "verb": "status",
+        "interval": 8000,
+        "fields": [
+          { "key": "apps", "label": "第三方应用", "icon": "📱" },
+          { "key": "state", "label": "Doze 状态", "icon": "💤" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "待机策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "aggressive",
+            "icon": "🔋",
+            "title": "激进省电",
+            "desc": "限制后台运行、唤醒锁，收紧待机分组",
+            "tags": ["restricted 分组", "禁止后台运行", "禁止唤醒锁", "可能影响消息"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡待机",
+            "desc": "常用分组，允许受限的后台活动",
+            "tags": ["working_set 分组", "允许后台运行", "白名单豁免"]
+          },
+          {
+            "id": "default",
+            "icon": "↩️",
+            "title": "原厂默认",
+            "desc": "恢复活跃分组与全部后台权限",
+            "tags": ["active 分组", "恢复全部权限", "消息无延迟"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "应用待机分组",
+        "verb": "buckets",
+        "limit": 40,
+        "empty": "未安装第三方应用"
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [{ "icon": "💤", "label": "Doze 状态", "verb": "idle" }]
+      }
+    ]
+  }
+}

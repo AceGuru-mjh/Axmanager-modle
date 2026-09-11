@@ -1,7 +1,0 @@
-id=app_backup_ax
-name=应用数据备份迁移
-version=1.0.0
-versionCode=1
-author=MJH
-description=Shell权限穿透存储沙箱 备份/恢复应用私有数据(/data/data)到公共存储 三档完整备份/仅数据/仅存档 tar打包+时间戳
-axeronPlugin=1

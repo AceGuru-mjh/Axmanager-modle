@@ -1,0 +1,83 @@
+{
+  "id": "game_gpu_tune_ax",
+  "name": "游戏专项优化",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "扩展插件",
+  "summary": "识别已安装游戏并做 AOT 编译与豁免，配合刷新率与温控策略",
+  "description": "免root游戏优化 自动识别已安装游戏 cmd package compile speed模式AOT编译 活跃分组与唤醒锁豁免 全局刷新率与温控策略配合 支持指定包名单独优化",
+  "subtitle": "自动识别游戏 · AOT 编译 · 单独优化",
+  "accent": "#f97316",
+  "accent2": "#c2410c",
+  "chips": ["speed 编译", "自动识别", "刷新率", "温控"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "优化原理",
+        "text": "游戏画质与帧率由游戏自身控制，无法强制修改。AOT 编译能把游戏代码预编译为机器码，减少运行时的即时编译开销，这是免 root 下为数不多能真实提升游戏流畅度的手段。编译会占用额外存储并耗时数十秒。"
+      },
+      {
+        "type": "metrics",
+        "title": "状态",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "games", "label": "识别到游戏", "icon": "🎮" },
+          { "key": "peak", "label": "峰值刷新率", "unit": "Hz", "icon": "📺" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "运行策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "performance",
+            "icon": "🔥",
+            "title": "性能优先",
+            "desc": "全局高刷，解除节流，关闭冻结器",
+            "tags": ["自适应高刷", "节流 0 档", "关闭冻结器", "发热较高"]
+          },
+          {
+            "id": "balanced",
+            "icon": "🎮",
+            "title": "均衡",
+            "desc": "系统自适应刷新率与温控",
+            "tags": ["自适应刷新率", "温控系统托管", "冻结器开启"]
+          },
+          {
+            "id": "battery",
+            "icon": "🔋",
+            "title": "省电",
+            "desc": "锁定 60Hz 并加强节流",
+            "tags": ["锁定 60Hz", "节流 3 档", "冻结器开启"]
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "指定游戏",
+        "id": "game",
+        "label": "游戏包名",
+        "hint": "留空则对全部已识别游戏生效（下方按钮）",
+        "placeholder": "com.miHoYo.xxx",
+        "verb": "optimize",
+        "buttonLabel": "优化该游戏",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "批量工具",
+        "items": [
+          { "icon": "🔧", "label": "编译全部游戏", "verb": "compile", "confirm": "将对已识别的游戏执行 speed 模式 AOT 编译，会占用额外存储并耗时数分钟。" },
+          { "icon": "🔍", "label": "游戏列表", "verb": "scan" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "id": "memory_cleaner_ax",
+  "name": "缓存回收与进程清理",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "trim-caches 回收 + 后台进程清理 + 临时文件清理，含只读分析模式",
+  "description": "免root清理 pm trim-caches回收应用缓存 am kill结束后台进程 清理/data/local/tmp与缩略图临时文件 三档深度/均衡/仅分析 实时显示内存占用与可用空间",
+  "subtitle": "回收缓存 · 结束后台 · 清理临时文件",
+  "accent": "#4ade80",
+  "accent2": "#22c55e",
+  "chips": ["trim-caches", "am kill", "/data/local/tmp", "只读分析"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "清理范围说明",
+        "text": "应用私有缓存位于 /data/data/<包名>/cache，没有 root 无法直接删除。本插件改用 pm trim-caches 让系统通知应用自行削减缓存，并清理 shell 可写的 /data/local/tmp 与公共临时文件，这是免 root 下安全且有效的范围。"
+      },
+      {
+        "type": "metrics",
+        "title": "内存状态",
+        "verb": "status",
+        "interval": 4000,
+        "fields": [
+          { "key": "used", "label": "内存占用", "unit": "%", "bar": true, "icon": "🧠" },
+          { "key": "avail", "label": "可用内存", "unit": "MB", "icon": "✅" },
+          { "key": "tmp", "label": "临时目录", "unit": "KB", "icon": "🗑" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "清理力度",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "deep",
+            "icon": "🧹",
+            "title": "深度清理",
+            "desc": "回收缓存、结束后台进程、删除临时文件",
+            "tags": ["trim-caches", "结束后台进程", "清理临时文件", "冻结器开启"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡清理",
+            "desc": "回收缓存与临时文件，不结束任何进程",
+            "tags": ["trim-caches", "清理临时文件", "保留进程"]
+          },
+          {
+            "id": "analyze",
+            "icon": "🔍",
+            "title": "仅分析",
+            "desc": "只读展示占用情况，不执行任何写入",
+            "tags": ["纯只读", "不改动系统", "查看占用明细"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "单项执行",
+        "items": [
+          { "icon": "♻️", "label": "回收缓存", "verb": "trim", "showLog": false },
+          { "icon": "⏹", "label": "结束后台", "verb": "killbg", "showLog": false },
+          { "icon": "🗑", "label": "清临时文件", "verb": "tmp", "showLog": false }
+        ]
+      }
+    ]
+  }
+}

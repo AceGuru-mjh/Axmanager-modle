@@ -1,7 +1,0 @@
-id=sensor_tuner_ax
-name=传感器性能调节
-version=1.0.0
-versionCode=1
-author=MJH
-description=陀螺仪/加速度计采样率/距离传感器/光线传感器策略 三档游戏高精度/标准日常/省电低采样
-axeronPlugin=1

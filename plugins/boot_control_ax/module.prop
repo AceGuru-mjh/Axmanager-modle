@@ -1,7 +1,0 @@
-id=boot_control_ax
-name=开机自启管理
-version=1.0.0
-versionCode=1
-author=MJH
-description=扫描BOOT_COMPLETED接收器/组件级冻结开机自启/白名单保护通讯应用 三档激进控制/智能管理/全部放行
-axeronPlugin=1
