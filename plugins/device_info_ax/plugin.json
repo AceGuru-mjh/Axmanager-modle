@@ -1,0 +1,54 @@
+{
+  "id": "device_info_ax",
+  "name": "设备信息总览",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "只读汇总机型、系统、硬件、电池与运行环境信息，可导出存档",
+  "description": "免root设备信息 机型系统硬件电池存储传感器系统特性全量只读汇总 显示CPU平台核心数与ABI 内存屏幕与运行状态 支持导出为文本文件 不修改任何系统设置",
+  "subtitle": "全量只读 · 硬件汇总 · 可导出存档",
+  "accent": "#22d3ee",
+  "accent2": "#0e7490",
+  "chips": ["只读", "getprop", "传感器", "导出"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "只读安全",
+        "text": "本插件只读取系统信息，不写入任何设置，因此不会产生任何需要回滚的改动。所有数据直接来自 getprop、/proc 与 dumpsys，反映设备的真实状态。"
+      },
+      {
+        "type": "metrics",
+        "title": "设备概览",
+        "verb": "status",
+        "interval": 10000,
+        "fields": [
+          { "key": "model", "label": "机型", "icon": "📱" },
+          { "key": "android", "label": "Android", "icon": "🤖" },
+          { "key": "soc", "label": "平台", "icon": "🔧" },
+          { "key": "cores", "label": "CPU 核心", "icon": "🧩" },
+          { "key": "ram", "label": "内存", "unit": "MB", "icon": "🧠" },
+          { "key": "screen", "label": "分辨率", "icon": "🖥" },
+          { "key": "level", "label": "电量", "unit": "%", "bar": true, "icon": "🔋" },
+          { "key": "temp", "label": "温度", "unit": "℃", "icon": "🌡" },
+          { "key": "uptime", "label": "运行时长", "unit": "h", "icon": "⏱" },
+          { "key": "free", "label": "可用存储", "icon": "💾" }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "详细信息",
+        "items": [
+          { "icon": "📋", "label": "完整信息", "verb": "dump" },
+          { "icon": "📡", "label": "传感器列表", "verb": "sensors" },
+          { "icon": "✨", "label": "系统特性", "verb": "features" },
+          { "icon": "💾", "label": "导出存档", "verb": "export", "showLog": false }
+        ]
+      }
+    ]
+  }
+}

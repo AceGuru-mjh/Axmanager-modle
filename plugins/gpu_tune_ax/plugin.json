@@ -1,0 +1,69 @@
+{
+  "id": "gpu_tune_ax",
+  "name": "渲染与帧率调度",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "调节屏幕刷新率上限与合成负载，替代无效的免 root GPU 超频",
+  "description": "免root渲染优化 屏幕刷新率峰值与下限(peak/min refresh rate) GPU调试层开关 强制可调整窗口 动画缩放 三档高帧率/均衡/省电 读取真实硬件刷新率上限",
+  "subtitle": "刷新率 · 合成负载 · 动画时长",
+  "accent": "#a78bfa",
+  "accent2": "#6366f1",
+  "chips": ["peak_refresh_rate", "自适应刷新率", "60/120Hz", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于 GPU 频率",
+        "text": "GPU 频率位于 /sys 下的 devfreq 节点，写入需要 root。免 root 环境下无法超频或锁定 GPU 频率。本插件转而调节系统提供的刷新率与合成相关设置，这部分是真实生效且可验证的。"
+      },
+      {
+        "type": "metrics",
+        "title": "当前状态",
+        "verb": "status",
+        "fields": [
+          { "key": "peak", "label": "峰值刷新率", "unit": "Hz", "icon": "📺" },
+          { "key": "min", "label": "下限", "unit": "Hz", "icon": "📉" },
+          { "key": "hwmax", "label": "硬件上限", "unit": "Hz", "icon": "🔧" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "帧率档位",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "performance",
+            "icon": "🎮",
+            "title": "高帧率",
+            "desc": "按屏幕硬件上限设置峰值刷新率，缩短动画",
+            "tags": ["峰值取硬件上限", "下限 90Hz", "动画 0.5x", "较高耗电"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡",
+            "desc": "系统自适应刷新率，标准动画时长",
+            "tags": ["自适应刷新率", "动画 1x", "跟随内容切换"]
+          },
+          {
+            "id": "battery",
+            "icon": "🔋",
+            "title": "省电 60Hz",
+            "desc": "锁定 60Hz，关闭强制可调整窗口",
+            "tags": ["锁定 60Hz", "关闭可变窗口", "最低功耗"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [{ "icon": "🔍", "label": "刷新率信息", "verb": "ratedump" }]
+      }
+    ]
+  }
+}

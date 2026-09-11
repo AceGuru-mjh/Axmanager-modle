@@ -1,0 +1,70 @@
+{
+  "id": "app_ops_manager_ax",
+  "name": "应用行为精细管控",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "基于 appops 对单个应用的单项操作授权进行查询、拒绝与恢复",
+  "description": "免root权限管控 appops get查询应用全部操作授权状态 appops set按操作名单独拒绝或允许 支持一键重置为默认 系统关键组件拒绝操作 含常用操作名速查表",
+  "subtitle": "appops 查询 · 单项拒绝 · 一键重置",
+  "accent": "#34d399",
+  "accent2": "#047857",
+  "chips": ["appops", "单项管控", "操作名速查", "可重置"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "appops 是什么",
+        "text": "appops 是 Android 内置的运行时操作授权机制，粒度比运行时权限更细，可以在不卸载、不冻结应用的前提下，单独关闭它在某一项操作上的能力。这是免 root 环境下最精细的管控手段，且随时可重置为默认。"
+      },
+      {
+        "type": "html",
+        "html": "<div class=\"ax-card\"><div class=\"ax-row-t\" style=\"margin-bottom:10px\">常用操作名速查</div><div style=\"display:flex;flex-wrap:wrap;gap:5px\"><span class=\"ax-tag\">CAMERA 相机</span><span class=\"ax-tag\">RECORD_AUDIO 录音</span><span class=\"ax-tag\">ACCESS_FINE_LOCATION 精确定位</span><span class=\"ax-tag\">READ_SMS 短信</span><span class=\"ax-tag\">READ_CONTACTS 通讯录</span><span class=\"ax-tag\">READ_CLIPBOARD 剪贴板</span><span class=\"ax-tag\">POST_NOTIFICATION 通知</span><span class=\"ax-tag\">RUN_IN_BACKGROUND 后台运行</span><span class=\"ax-tag\">WAKE_LOCK 唤醒锁</span><span class=\"ax-tag\">READ_PHONE_STATE 设备信息</span><span class=\"ax-tag\">WRITE_SETTINGS 修改设置</span><span class=\"ax-tag\">SYSTEM_ALERT_WINDOW 悬浮窗</span></div></div>"
+      },
+      {
+        "type": "input",
+        "title": "查询",
+        "id": "qp",
+        "label": "应用包名",
+        "hint": "查看该应用当前全部操作的授权状态",
+        "placeholder": "com.example.app",
+        "verb": "query",
+        "buttonLabel": "查询授权状态",
+        "required": true
+      },
+      {
+        "type": "input",
+        "title": "拒绝某项操作",
+        "id": "dn",
+        "label": "包名 + 操作名",
+        "hint": "用空格分隔，例如：com.example.app CAMERA",
+        "placeholder": "com.example.app CAMERA",
+        "verb": "deny",
+        "buttonLabel": "拒绝该操作",
+        "required": true
+      },
+      {
+        "type": "input",
+        "title": "恢复某项操作",
+        "id": "al",
+        "label": "包名 + 操作名",
+        "hint": "用空格分隔，例如：com.example.app CAMERA",
+        "placeholder": "com.example.app CAMERA",
+        "verb": "allow",
+        "buttonLabel": "允许该操作",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "重置",
+        "items": [
+          { "icon": "↩️", "label": "重置全部为默认", "verb": "reset", "showLog": false }
+        ]
+      }
+    ]
+  }
+}

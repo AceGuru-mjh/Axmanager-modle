@@ -1,0 +1,53 @@
+{
+  "id": "traffic_stats_ax",
+  "name": "流量统计",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "接口级流量统计、实时速率与按 UID 用量排行（统计无法重置）",
+  "description": "免root流量统计 proc/net/dev接口级收发字节 dumpsys netstats按UID用量排行 2秒采样实时速率 Wi-Fi与移动数据分别统计 全部为只读采集",
+  "subtitle": "接口统计 · 实时速率 · 按应用排行",
+  "accent": "#60a5fa",
+  "accent2": "#1d4ed8",
+  "chips": ["/proc/net/dev", "netstats", "实时速率", "只读"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "统计口径",
+        "text": "接口级统计来自 /proc/net/dev，为设备上次启动以来的累计值；按 UID 的用量来自系统 netstats 服务。重置统计计数器需要系统签名权限，shell 无法执行，因此这里只提供查看能力。"
+      },
+      {
+        "type": "metrics",
+        "title": "累计流量",
+        "verb": "status",
+        "interval": 8000,
+        "fields": [
+          { "key": "total", "label": "总接收", "unit": "MB", "icon": "⬇" },
+          { "key": "sent", "label": "总发送", "unit": "MB", "icon": "⬆" },
+          { "key": "wifi", "label": "Wi-Fi 接收", "unit": "MB", "icon": "📶" },
+          { "key": "mobile", "label": "移动数据接收", "unit": "MB", "icon": "📡" }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "接口明细",
+        "verb": "ifaces",
+        "empty": "无法读取接口统计"
+      },
+      {
+        "type": "actions",
+        "title": "统计工具",
+        "items": [
+          { "icon": "📊", "label": "按应用用量", "verb": "uidstats" },
+          { "icon": "🚀", "label": "实时速率", "verb": "rate", "showLog": false },
+          { "icon": "🌐", "label": "系统统计摘要", "verb": "netstats" }
+        ]
+      }
+    ]
+  }
+}
