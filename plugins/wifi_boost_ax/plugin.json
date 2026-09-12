@@ -5,6 +5,7 @@
   "versionCode": 20,
   "author": "MJH",
   "axeronPlugin": 1,
+  "category": "网络优化",
   "summary": "减少系统断网与自动切网行为，提升实际可用体验（信号强度需 root）",
   "description": "免rootWi-Fi优化 息屏保持Wi-Fi策略wifi_sleep_policy 关闭网络看门狗自动切网 avoid_bad_wifi 后台扫描管控 三档极速稳定/均衡日常/深度省电 实时信号强度与链路速率",
   "subtitle": "息屏保持 · 关闭自动切网 · 扫描管控",
