@@ -55,13 +55,13 @@ function zip(files) {
     const central = [];
     let offset = 0;
 
-    const dosTime = () => {
-        const d = new Date();
-        const time = ((d.getHours() & 31) << 11) | ((d.getMinutes() & 63) << 5) | ((d.getSeconds() / 2) & 31);
-        const date = (((d.getFullYear() - 1980) & 127) << 9) | (((d.getMonth() + 1) & 15) << 5) | (d.getDate() & 31);
-        return { time, date };
-    };
-    const { time, date } = dosTime();
+    /* 使用固定时间戳，让构建可复现：
+       此前每次打包都写入当前时间，导致 39 个 zip 每次提交都显示变更，
+       产生大量无意义的 diff 噪音。支持 SOURCE_DATE_EPOCH 覆盖。 */
+    const src = Number(process.env.SOURCE_DATE_EPOCH) || 1700000000; // 2023-11-15
+    const d = new Date(src * 1000);
+    const time = ((d.getUTCHours() & 31) << 11) | ((d.getUTCMinutes() & 63) << 5) | ((d.getUTCSeconds() / 2) & 31);
+    const date = (((d.getUTCFullYear() - 1980) & 127) << 9) | (((d.getUTCMonth() + 1) & 15) << 5) | (d.getUTCDate() & 31);
 
     for (const { name, data } of files) {
         const raw = Buffer.isBuffer(data) ? data : Buffer.from(data, 'utf8');

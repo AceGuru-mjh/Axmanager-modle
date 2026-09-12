@@ -6,8 +6,8 @@
   "author": "MJH",
   "axeronPlugin": 1,
   "category": "显示与音频",
-  "summary": "状态栏图标显隐、字号与字重、暗色模式与通知音效选择，全部可逆",
-  "description": "免root界面定制 状态栏系统图标逐项显隐icon_blacklist 字号font_scale与字重 高对比文字 暗色模式ui_night_mode 扫描设备已索引音设为通知/铃声/闹钟 电量百分比与时钟秒 一键回滚",
+  "summary": "状态栏图标显隐、字号与字重、暗色模式与通知/铃声/闹钟音效选择，全部可逆",
+  "description": "免root界面定制 状态栏系统图标逐项显隐icon_blacklist 字号font_scale与字重 高对比文字 暗色模式ui_night_mode 扫描设备已索引音频设为通知音/来电铃声/闹钟音 电量百分比与时钟秒 一键回滚",
   "subtitle": "状态栏 · 字体 · 暗色 · 音效",
   "accent": "#f472b6",
   "accent2": "#a855f7",
@@ -18,7 +18,7 @@
       {
         "type": "note",
         "heading": "能力说明",
-        "text": "字体仅支持调整大小、粗细与高对比，替换字体文件需要 root；状态栏图标只能控制系统自带图标的显示与隐藏，无法自定义图标图形。部分 ROM 会忽略图标隐藏设置，切换后若开关自动弹回即表示本机不支持。"
+        "text": "字体仅支持调整大小、粗细与高对比，替换字体文件需要 root；状态栏图标只能控制系统自带图标的显示与隐藏，无法自定义图标图形。部分 ROM 会忽略图标隐藏设置，切换后若开关自动弹回即表示本机不支持。音效列表来源于设备已索引的音频，新放入的音频需重启设备完成索引后才会出现。"
       },
       {
         "type": "metrics",
@@ -132,12 +132,33 @@
       },
       {
         "type": "list",
-        "title": "通知音效（点击设置）",
+        "title": "通知音（点击设置）",
         "verb": "tones",
+        "args": ["notification"],
         "clickVerb": "settone",
         "clickLabel": "正在设为通知音…",
-        "limit": 40,
-        "empty": "未扫描到可用音效。请把音频放入 /sdcard/Music 或 /sdcard/Notifications 后重启设备完成索引，再点上方刷新。"
+        "limit": 20,
+        "empty": "未扫描到可用音频，或本机不支持 content 查询"
+      },
+      {
+        "type": "list",
+        "title": "来电铃声（点击设置）",
+        "verb": "tones",
+        "args": ["ringtone"],
+        "clickVerb": "settone",
+        "clickLabel": "正在设为铃声…",
+        "limit": 15,
+        "empty": "未扫描到可用音频，或本机不支持 content 查询"
+      },
+      {
+        "type": "list",
+        "title": "闹钟音（点击设置）",
+        "verb": "tones",
+        "args": ["alarm"],
+        "clickVerb": "settone",
+        "clickLabel": "正在设为闹钟音…",
+        "limit": 15,
+        "empty": "未扫描到可用音频，或本机不支持 content 查询"
       }
     ]
   }
