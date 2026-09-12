@@ -100,6 +100,8 @@ jobs:
       - name: 创建或更新 Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 本任务不检出代码，需显式指定仓库，否则 gh 会因找不到 .git 而失败
+          GH_REPO: ${{ github.repository }}
           VER: ${{ steps.ver.outputs.version }}
           PRERELEASE: ${{ github.event.inputs.prerelease }}
         run: |
