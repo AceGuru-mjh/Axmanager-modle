@@ -1,0 +1,129 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '发布版本号（如 v2.0.0）。填写后才会发布 Release，留空则仅构建'
+        required: false
+        type: string
+      prerelease:
+        description: '标记为预发布版本'
+        required: false
+        type: boolean
+        default: false
+
+# 最小权限原则：默认只读，发布任务单独提权
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 构建并校验插件
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装校验依赖
+        run: sudo apt-get update -qq && sudo apt-get install -y unzip
+
+      - name: 构建插件
+        run: node tools/build.mjs
+
+      - name: 静态校验
+        run: bash tools/check.sh
+
+      - name: 生成校验和与发布说明
+        run: |
+          cd releases
+          sha256sum *.zip > SHA256SUMS.txt
+          cd ..
+          node tools/release-notes.mjs > release-notes.md
+          {
+            echo "### 构建结果"
+            echo ""
+            echo "- 插件数量：**$(node -p "JSON.parse(require('fs').readFileSync('dist/index.json','utf8')).count")**"
+            echo "- 安装包数量：**$(ls -1 releases/*.zip | wc -l)**"
+            echo ""
+            echo "静态校验已通过：POSIX 语法 / LF 换行 / 文件完整性 / zip 可解压"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: axmanager-plugins
+          path: |
+            releases/*.zip
+            releases/SHA256SUMS.txt
+            release-notes.md
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    name: 发布到 GitHub Releases
+    needs: build
+    # 仅打 tag 推送或手动指定版本号时才发布；普通 push 与 PR 只构建校验
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.version != '')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 下载构建产物
+        uses: actions/download-artifact@v4
+        with:
+          name: axmanager-plugins
+          path: artifacts
+
+      - name: 解析版本号
+        id: ver
+        env:
+          REF: ${{ github.ref }}
+          INPUT_VER: ${{ github.event.inputs.version }}
+        run: |
+          if [ -n "$INPUT_VER" ]; then
+            echo "version=$INPUT_VER" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=${REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 创建或更新 Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VER: ${{ steps.ver.outputs.version }}
+          PRERELEASE: ${{ github.event.inputs.prerelease }}
+        run: |
+          set -euo pipefail
+
+          # upload-artifact 会保留目录结构，这里统一展平到 staging/
+          mkdir -p staging
+          find artifacts -type f \( -name '*.zip' -o -name 'SHA256SUMS.txt' -o -name 'release-notes.md' \) -exec cp {} staging/ \;
+
+          cd staging
+          ZIP_COUNT=$(ls -1 *.zip | wc -l)
+          TITLE="${VER} - ${ZIP_COUNT}套AXManager插件合集"
+          FLAGS=()
+          [ "$PRERELEASE" = "true" ] && FLAGS+=(--prerelease)
+
+          if gh release view "$VER" >/dev/null 2>&1; then
+            echo "Release $VER 已存在，覆盖上传资产"
+            gh release upload "$VER" *.zip SHA256SUMS.txt --clobber
+          else
+            echo "创建新 Release $VER"
+            gh release create "$VER" *.zip SHA256SUMS.txt \
+              --title "$TITLE" \
+              --notes-file release-notes.md \
+              "${FLAGS[@]:-}"
+          fi
+
+          echo "已发布 $VER，共 $ZIP_COUNT 个安装包"
