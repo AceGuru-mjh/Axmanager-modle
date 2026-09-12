@@ -112,18 +112,20 @@ jobs:
           cd staging
           ZIP_COUNT=$(ls -1 *.zip | wc -l)
           TITLE="${VER} - ${ZIP_COUNT}套AXManager插件合集"
-          FLAGS=()
-          [ "$PRERELEASE" = "true" ] && FLAGS+=(--prerelease)
+          FLAGS=""
+          [ "$PRERELEASE" = "true" ] && FLAGS="--prerelease"
 
           if gh release view "$VER" >/dev/null 2>&1; then
             echo "Release $VER 已存在，覆盖上传资产"
             gh release upload "$VER" *.zip SHA256SUMS.txt --clobber
           else
             echo "创建新 Release $VER"
+            # 不用数组展开：bash < 4.4 下 ${arr[@]} 为空时会传入一个空字符串参数，
+            # 导致 gh 报 "no matches found for ''"
             gh release create "$VER" *.zip SHA256SUMS.txt \
               --title "$TITLE" \
               --notes-file release-notes.md \
-              "${FLAGS[@]:-}"
+              ${FLAGS:+"$FLAGS"}
           fi
 
           echo "已发布 $VER，共 $ZIP_COUNT 个安装包"
