@@ -54,6 +54,23 @@ _bl_del() {
     echo ",$(_bl_get)," | sed "s/,$_t,/,/g; s/^,*//; s/,*$//; s/^,//; s/,$//"
 }
 
+# 把若干 token 合并进一个逗号列表。
+# 注意：这是纯内存操作，不读取设置。此前的实现在每个循环里都重新读取设置，
+# 而设置要到最后才写入，导致批量隐藏只剩最后一个 token —— 已修正。
+_bl_merge() {
+    _base="$1"; shift
+    for _t in "$@"; do
+        [ -z "$_t" ] && continue
+        case ",$_base," in
+        *",$_t,"*) ;;
+        *)
+            if [ -n "$_base" ]; then _base="$_base,$_t"; else _base="$_t"; fi
+            ;;
+        esac
+    done
+    echo "$_base"
+}
+
 # 统计当前被隐藏的图标数量
 _bl_count() {
     _bl=$(_bl_get)
@@ -91,12 +108,28 @@ _night_get() {
     echo "$_v"
 }
 
+# 判断本机使用哪个键：优先取当前有值的那个，避免写进一个存在但无人读取的键
+_night_key() {
+    _v=$(ax_get secure ui_night_mode)
+    case "$_v" in
+    ''|null)
+        _t=$(ax_get system theme_mode)
+        case "$_t" in
+        ''|null) echo "ui_night_mode" ;;
+        *) echo "theme_mode" ;;
+        esac
+        ;;
+    *) echo "ui_night_mode" ;;
+    esac
+}
+
 _night_set() {
-    if ax_set_secure ui_night_mode "$1"; then return 0; fi
-    # 部分 ROM（如 MIUI）使用 system/theme_mode
-    if ax_set_system theme_mode "$1"; then
-        ax_info "本机使用 theme_mode 而非 ui_night_mode"
-        return 0
+    if [ "$(_night_key)" = "theme_mode" ]; then
+        ax_set_system theme_mode "$1" && { ax_info "本机使用 theme_mode"; return 0; }
+        ax_set_secure ui_night_mode "$1" && return 0
+    else
+        ax_set_secure ui_night_mode "$1" && return 0
+        ax_set_system theme_mode "$1" && { ax_info "本机使用 theme_mode"; return 0; }
     fi
     ax_warn "暗色模式设置未被系统接受"
     AX_FAILED=$((AX_FAILED + 1))
@@ -106,36 +139,46 @@ _night_set() {
 # ---------------------------------------------------------------------------
 # 音效扫描：查询已被媒体库索引的音频
 # ---------------------------------------------------------------------------
+# 输出： id<TAB>标题<TAB>基础URI
+#   逐字段独立提取，不依赖 content query 的输出字段顺序（各版本可能不同）。
+#   同时保留 internal / external 来源，避免把外部音频写成 internal 的 URI。
 _tone_query() {
     command -v content >/dev/null 2>&1 || return 1
     for _u in content://media/internal/audio/media content://media/external/audio/media; do
-        content query --uri "$_u" \
-            --projection _id:_display_name:title 2>/dev/null |
-            grep -oE 'Row: [0-9]+ _id=[0-9]+, _display_name=[^,]+, title=[^,]*' 2>/dev/null |
-            sed 's/^Row: [0-9]* //'
-    done
+        content query --uri "$_u" --projection _id:_display_name:title 2>/dev/null |
+            grep -E '^Row: [0-9]+' |
+            while IFS= read -r _row; do
+                _id=$(printf '%s' "$_row" | grep -oE '_id=[0-9]+' | head -1 | cut -d= -f2)
+                [ -z "$_id" ] && continue
+                _ti=$(printf '%s' "$_row" | sed -n 's/.*title=\([^,]*\).*/\1/p')
+                _nm=$(printf '%s' "$_row" | sed -n 's/.*_display_name=\([^,]*\).*/\1/p')
+                [ -z "$_ti" ] && _ti="$_nm"
+                [ -z "$_ti" ] && _ti="音频 $_id"
+                printf '%s\t%s\t%s\n' "$_id" "$(printf '%s' "$_ti" | cut -c1-40)" "$_u"
+            done
+    done | sort -u -n
 }
 
+# _tone_list [notification|ringtone|alarm]
 _tone_list() {
+    _type="${1:-notification}"
+    case "$_type" in
+    notification|ringtone|alarm) ;;
+    *) _type=notification ;;
+    esac
+
     if ! command -v content >/dev/null 2>&1; then
         ax_warn "本机不提供 content 命令，无法扫描音效列表"
-        ax_info "可改用文件方式：把音频放到 /sdcard/Music 后重启设备完成索引"
+        ax_info "请把音频放到 /sdcard/Music 或 /sdcard/Notifications 后重启设备完成索引"
         ax_result ok
         return 0
     fi
-    _n=0
-    _tone_query | head -60 | while IFS= read -r _row; do
-        [ -z "$_row" ] && continue
-        _id=$(echo "$_row" | sed -n 's/.*_id=\([0-9]*\).*/\1/p')
-        _ti=$(echo "$_row" | sed -n 's/.*title=//p')
-        _nm=$(echo "$_row" | sed -n 's/.*_display_name=\([^,]*\).*/\1/p')
+
+    _TAB=$(printf '\t')
+    _tone_query | head -25 | while IFS="$_TAB" read -r _id _ti _base; do
         [ -z "$_id" ] && continue
-        [ -z "$_ti" ] && _ti="$_nm"
-        [ -z "$_ti" ] && _ti="音频 $_id"
-        # 输出：标题 | 副标题 | 徽标 | 类型 | 点击载荷（settone notification <uri>）
-        printf '%s|%s|点击设置|dim|notification content://media/internal/audio/media/%s\n' \
-            "$(echo "$_ti" | cut -c1-40)" "ID $_id" "$_id"
-        _n=$((_n + 1))
+        # 输出：标题 | 副标题 | 徽标 | 类型 | 点击载荷（settone <类型> <URI>）
+        printf '%s|%s|点击设置|dim|%s %s/%s\n' "$_ti" "ID $_id" "$_type" "$_base" "$_id"
     done
     ax_result ok
 }
@@ -163,15 +206,27 @@ _tone_set() {
     _cur=$(ax_get system "$_k")
     # 部分 ROM 会规范化 URI（附加参数），只要仍指向同一 id 即视为成功
     _want=$(echo "$_uri" | grep -oE '[0-9]+$')
-    case "$_cur" in
-    *"$_want"*)
+    if [ -n "$_want" ]; then
+        case "$_cur" in
+        *"$_want"*) _ok=1 ;;
+        *) _ok=0 ;;
+        esac
+    else
+        # URI 无结尾数字（如设为静音），只要写入非空即视为成功
+        [ -n "$_cur" ] && [ "$_cur" != "null" ] && _ok=1 || _ok=0
+    fi
+
+    if [ "$_ok" = "1" ]; then
         [ -z "$_old" ] || [ "$_old" = "null" ] && _old="$AX_NULL"
         _ax_journal_add setting system "$_k" "$_old"
         AX_TOUCHED=$((AX_TOUCHED + 1))
-        ax_ok "已设置 $_k"
+        case "$_type" in
+        notification) ax_ok "已设为通知音" ;;
+        ringtone)     ax_ok "已设为来电铃声" ;;
+        alarm)        ax_ok "已设为闹钟音" ;;
+        esac
         return 0
-        ;;
-    esac
+    fi
     ax_warn "系统未接受该音效（可能不支持外部 URI）"
     AX_FAILED=$((AX_FAILED + 1))
     return 1
@@ -226,9 +281,10 @@ ax_custom() {
         ;;
 
     iconhideall)
-        _new=$(_bl_get)
-        for _t in $AX_ICONS; do _new=$(_bl_add "$_t"); done
-        _bl_write "$_new" && ax_ok "已隐藏全部可控制图标"
+        _new=$(_bl_merge "$(_bl_get)" $AX_ICONS)
+        _n=$(echo "$_new" | tr ',' '\n' | grep -c .)
+        _bl_write "$_new" && ax_ok "已隐藏 $_n 个图标"
+        ax_info "若部分图标仍显示，说明本机 ROM 忽略了 icon_blacklist"
         ax_result ok
         ;;
 
