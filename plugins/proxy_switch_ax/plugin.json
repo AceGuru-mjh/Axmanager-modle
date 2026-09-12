@@ -1,0 +1,72 @@
+{
+  "id": "proxy_switch_ax",
+  "name": "全局 HTTP 代理",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "网络优化",
+  "summary": "系统级 HTTP 代理切换与排除列表管理，支持自定义与一键直连",
+  "description": "免root代理设置 系统级HTTP代理http_proxy 排除列表global_http_proxy_exclusion_list 三档抓包代理8888/公司网络8080/直连模式 支持自定义host:port 实时查看代理状态",
+  "subtitle": "系统级代理 · 排除列表 · 一键直连",
+  "accent": "#facc15",
+  "accent2": "#eab308",
+  "chips": ["http_proxy", "排除列表", "抓包", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "生效范围",
+        "text": "系统代理对绝大多数应用的 HTTP/HTTPS 流量生效，但使用 VPN 通道或自行指定 Socket 的应用可能绕过。HTTPS 抓包还需要在设备或应用中安装并信任抓包工具的根证书。"
+      },
+      {
+        "type": "metrics",
+        "title": "当前代理",
+        "verb": "status",
+        "interval": 8000,
+        "fields": [
+          { "key": "proxy", "label": "代理地址", "icon": "🔀" },
+          { "key": "exclude", "label": "排除列表", "icon": "📋" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "预设方案",
+        "id": "profile",
+        "value": "direct",
+        "items": [
+          {
+            "id": "capture",
+            "icon": "🔍",
+            "title": "抓包代理",
+            "desc": "指向本机 8888 端口，用于 Charles / mitmproxy",
+            "tags": ["127.0.0.1:8888", "排除本机地址", "需先运行抓包工具"]
+          },
+          {
+            "id": "work",
+            "icon": "🏢",
+            "title": "公司网络",
+            "desc": "指向本机 8080 端口，含内网排除规则",
+            "tags": ["127.0.0.1:8080", "排除内网域名", "排除本机地址"]
+          },
+          {
+            "id": "direct",
+            "icon": "🌐",
+            "title": "直连模式",
+            "desc": "清除系统代理与排除列表",
+            "tags": ["清除代理", "恢复直连", "清空排除列表"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "工具",
+        "items": [
+          { "icon": "🔍", "label": "查看代理状态", "verb": "test" },
+          { "icon": "🧹", "label": "清除代理", "verb": "clear", "showLog": false }
+        ]
+      }
+    ]
+  }
+}

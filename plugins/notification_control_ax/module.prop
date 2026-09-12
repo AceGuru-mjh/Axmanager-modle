@@ -1,7 +1,0 @@
-id=notification_control_ax
-name=通知管理控制
-version=1.0.0
-versionCode=1
-author=MJH
-description=通知弹出控制/HeadsUp悬浮/通知冷却时间/渠道分组限制/振动反馈/应用通知频率限制 三档专注模式/标准管理/全部开启
-axeronPlugin=1

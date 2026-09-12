@@ -1,0 +1,84 @@
+{
+  "id": "auto_input_ax",
+  "name": "输入与手势自动化",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "文本输入、按键事件、坐标点击与滑动，实现免 root 的简易自动化",
+  "description": "免root自动化 input text文本输入 input keyevent按键事件(主页/返回/最近/电源/音量/静音/菜单/截图) input tap坐标点击 input swipe滑动手势 支持自定义按键与坐标 查看屏幕分辨率辅助定位",
+  "subtitle": "文本 · 按键 · 点击 · 滑动",
+  "accent": "#a78bfa",
+  "accent2": "#6d28d9",
+  "chips": ["input text", "keyevent", "tap/swipe", "自定义"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "使用方式",
+        "text": "本插件调用系统内置的 input 命令。输入文本前请先把焦点放到输入框；点击与滑动需要目标界面处于前台。按键事件不受前台限制，可直接使用。"
+      },
+      {
+        "type": "metrics",
+        "title": "屏幕参数",
+        "verb": "status",
+        "interval": 30000,
+        "fields": [
+          { "key": "size", "label": "分辨率", "icon": "🖥" },
+          { "key": "density", "label": "密度", "icon": "📐" }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "文本输入",
+        "id": "txt",
+        "label": "要输入的文本",
+        "hint": "请先在前台应用中把焦点放到输入框",
+        "placeholder": "要输入的内容",
+        "verb": "text",
+        "buttonLabel": "输入文本",
+        "required": true
+      },
+      {
+        "type": "input",
+        "title": "坐标操作",
+        "id": "xy",
+        "label": "坐标参数",
+        "hint": "点击：x y    滑动：x1 y1 x2 y2 时长",
+        "placeholder": "540 1200",
+        "verb": "tap",
+        "buttonLabel": "点击该坐标",
+        "required": true
+      },
+      {
+        "type": "input",
+        "title": "自定义按键",
+        "id": "key",
+        "label": "按键代码",
+        "hint": "常用：3 主页 / 4 返回 / 187 最近 / 26 电源 / 24 音量+ / 25 音量-",
+        "placeholder": "4",
+        "verb": "key",
+        "buttonLabel": "发送按键",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "常用按键",
+        "items": [
+          { "icon": "🏠", "label": "主页", "verb": "home", "showLog": false },
+          { "icon": "↩️", "label": "返回", "verb": "back", "showLog": false },
+          { "icon": "🗂", "label": "最近任务", "verb": "recent", "showLog": false },
+          { "icon": "🔌", "label": "电源", "verb": "power", "showLog": false },
+          { "icon": "🔊", "label": "音量+", "verb": "volup", "showLog": false },
+          { "icon": "🔉", "label": "音量-", "verb": "voldn", "showLog": false },
+          { "icon": "🔇", "label": "静音", "verb": "mute", "showLog": false },
+          { "icon": "📷", "label": "系统截图", "verb": "shotkey", "showLog": false },
+          { "icon": "📐", "label": "查看分辨率", "verb": "res" }
+        ]
+      }
+    ]
+  }
+}

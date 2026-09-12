@@ -1,0 +1,85 @@
+{
+  "id": "system_ui_tweak_ax",
+  "name": "系统界面微调",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "扩展插件",
+  "summary": "沉浸全屏、显示密度、导航栏布局与状态栏微调，全部可逆",
+  "description": "免root界面微调 policy_control沉浸全屏 wm density显示密度与分辨率 sysui_nav_bar导航栏布局 状态栏电量百分比 快捷开关列数 三档沉浸/紧凑/原生 一键恢复默认",
+  "subtitle": "沉浸全屏 · 显示密度 · 导航栏 · 状态栏",
+  "accent": "#38bdf8",
+  "accent2": "#0284c7",
+  "chips": ["immersive", "wm density", "nav_bar", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "安全提示",
+        "text": "显示密度与分辨率调整后若出现布局异常，点击「原生均衡」档位或输入 reset 即可恢复，重启设备同样会恢复默认。沉浸模式下从屏幕边缘上滑可临时唤出系统栏。"
+      },
+      {
+        "type": "metrics",
+        "title": "界面状态",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "density", "label": "显示密度", "icon": "📐" },
+          { "key": "immersive", "label": "沉浸模式", "icon": "🖥" },
+          { "key": "battpct", "label": "电量百分比", "icon": "🔋" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "界面方案",
+        "id": "profile",
+        "value": "default",
+        "items": [
+          {
+            "id": "immersive",
+            "icon": "🖥",
+            "title": "沉浸全屏",
+            "desc": "隐藏状态栏与导航栏，获得完整显示区域",
+            "tags": ["沉浸全屏", "边缘上滑唤出", "适合影音游戏"]
+          },
+          {
+            "id": "compact",
+            "icon": "📐",
+            "title": "紧凑布局",
+            "desc": "提高显示密度，单屏显示更多内容",
+            "tags": ["密度 +40", "快捷开关 8 列", "电量百分比"]
+          },
+          {
+            "id": "default",
+            "icon": "↩️",
+            "title": "原生均衡",
+            "desc": "恢复系统默认的密度、分辨率与状态栏",
+            "tags": ["关闭沉浸", "密度复位", "分辨率复位"]
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "自定义",
+        "id": "dv",
+        "label": "显示密度",
+        "hint": "输入数字如 420，或输入 reset 恢复默认",
+        "placeholder": "420 或 reset",
+        "verb": "density",
+        "buttonLabel": "设置密度",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "状态栏与导航栏",
+        "items": [
+          { "icon": "🔋", "label": "显示电量百分比", "verb": "batterypercent", "args": ["1"], "showLog": false, "refresh": true },
+          { "icon": "📱", "label": "导航栏复位", "verb": "navbar", "args": ["reset"], "showLog": false, "refresh": true },
+          { "icon": "🔍", "label": "查看参数", "verb": "info" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,0 @@
-id=display_color_ax
-name=屏幕色彩亮度增强
-version=1.0.0
-versionCode=1
-author=MJH
-description=色彩饱和度/色域模式/背光曲线/HDR画面优化/峰值亮度限制 三档标准原色/鲜艳广色域/护眼低亮度 OLED/LCD通用
-axeronPlugin=1

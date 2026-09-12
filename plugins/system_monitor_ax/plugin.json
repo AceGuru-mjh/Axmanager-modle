@@ -1,0 +1,48 @@
+{
+  "id": "system_monitor_ax",
+  "name": "实时系统监控",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统工具",
+  "summary": "CPU / 内存 / 电池 / 存储 / 网络速率实时仪表盘，含截图与缓存回收",
+  "description": "实时仪表盘 CPU占用率 内存占用 电池电量温度电流 存储空间 网络上下行速率 自动刷新 一键截图/回收缓存/重启SystemUI 纯只读采集",
+  "subtitle": "CPU · 内存 · 电池 · 存储 · 网络速率",
+  "accent": "#22d3ee",
+  "accent2": "#3b82f6",
+  "chips": ["/proc 采样", "dumpsys", "3s 刷新", "只读安全"],
+  "ui": {
+    "apply": false,
+    "sections": [
+      {
+        "type": "metrics",
+        "title": "实时仪表盘",
+        "verb": "status",
+        "interval": 3000,
+        "fields": [
+          { "key": "cpu", "label": "CPU 占用", "unit": "%", "bar": true, "icon": "⚡" },
+          { "key": "mem", "label": "内存占用", "unit": "%", "bar": true, "icon": "🧠" },
+          { "key": "batt", "label": "电量", "unit": "%", "bar": true, "icon": "🔋" },
+          { "key": "temp", "label": "电池温度", "unit": "℃", "icon": "🌡" },
+          { "key": "cur", "label": "电流", "unit": "mA", "icon": "🔌" },
+          { "key": "memused", "label": "已用内存", "unit": "MB", "icon": "📊" },
+          { "key": "disk", "label": "存储占用", "unit": "%", "bar": true, "icon": "💾" },
+          { "key": "diskfree", "label": "可用存储", "unit": "MB", "icon": "🗂" },
+          { "key": "nrx", "label": "下行", "unit": "KB/s", "icon": "⬇" },
+          { "key": "ntx", "label": "上行", "unit": "KB/s", "icon": "⬆" }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "快捷操作",
+        "items": [
+          { "icon": "📷", "label": "截图", "verb": "shot", "showLog": false },
+          { "icon": "🧹", "label": "回收缓存", "verb": "trim", "showLog": false },
+          { "icon": "🔄", "label": "重启 SystemUI", "verb": "restartui", "showLog": false, "confirm": "将重启系统界面进程，屏幕可能短暂闪烁，不会丢失数据。" },
+          { "icon": "📈", "label": "进程 TOP10", "verb": "top" }
+        ]
+      }
+    ]
+  }
+}

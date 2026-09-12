@@ -1,7 +1,0 @@
-id=cpu_tuner_ax
-name=CPU性能调度
-version=1.0.0
-versionCode=1
-author=MJH
-description=CPU调速器/最大最小频率/触控升频/多核调度策略/温度降频阈值 三档性能全开/均衡日常/省电续航
-axeronPlugin=1

@@ -1,7 +1,0 @@
-id=proxy_switch_ax
-name=HTTP代理快速切换
-version=1.0.0
-versionCode=1
-author=MJH
-description=全局HTTP/HTTPS代理设置/预设代理配置/代理连通性测试/代理排除列表 三档预设抓包代理/公司网络/直连模式
-axeronPlugin=1

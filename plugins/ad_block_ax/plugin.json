@@ -1,0 +1,83 @@
+{
+  "id": "ad_block_ax",
+  "name": "广告与追踪拦截",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "扩展插件",
+  "summary": "过滤型私有 DNS 拦截 + 停用广告追踪组件（hosts 需 root，已说明）",
+  "description": "免root广告拦截 过滤型私有DNS(DoT)系统级域名拦截 停用厂商与广告SDK组件 覆盖广告追踪域名 三档强效/轻度/原厂 支持自定义DNS 扫描广告组件状态",
+  "subtitle": "私有 DNS 拦截 · 组件停用 · 可自定义",
+  "accent": "#f472b6",
+  "accent2": "#db2777",
+  "chips": ["DoT 拦截", "组件停用", "自定义 DNS", "可逆"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "拦截原理",
+        "text": "修改 /system/etc/hosts 需要 root，免 root 环境下不可用。本插件改用私有 DNS（DNS-over-TLS）指向过滤型解析器，在系统层面完成域名拦截，对全部应用生效；同时可停用厂商与广告 SDK 组件。两者都是可逆操作。"
+      },
+      {
+        "type": "metrics",
+        "title": "拦截状态",
+        "verb": "status",
+        "interval": 12000,
+        "fields": [
+          { "key": "dnsmode", "label": "DNS 模式", "icon": "🔐" },
+          { "key": "dnshost", "label": "解析器", "icon": "🌐" },
+          { "key": "total", "label": "发现广告组件", "icon": "🔍" },
+          { "key": "blocked", "label": "已停用", "icon": "🚫" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "拦截力度",
+        "id": "profile",
+        "value": "light",
+        "items": [
+          {
+            "id": "strong",
+            "icon": "🛡",
+            "title": "强效拦截",
+            "desc": "过滤型 DNS 加停用全部广告追踪组件",
+            "tags": ["DNS 拦截", "停用广告组件", "覆盖最全", "少数应用可能异常"]
+          },
+          {
+            "id": "light",
+            "icon": "🔹",
+            "title": "轻度拦截",
+            "desc": "仅启用过滤型 DNS，保留广告 SDK",
+            "tags": ["仅 DNS 拦截", "保留 SDK", "兼容性最好", "推荐"]
+          },
+          {
+            "id": "default",
+            "icon": "↩️",
+            "title": "恢复原厂",
+            "desc": "关闭私有 DNS 并重新启用广告组件",
+            "tags": ["关闭 DNS 拦截", "启用全部组件", "恢复原状"]
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "自定义解析器",
+        "id": "dns",
+        "label": "DNS 主机名",
+        "hint": "例如 dns.adguard.com、dns.google、one.one.one.one",
+        "placeholder": "dns.adguard.com",
+        "verb": "setdns",
+        "buttonLabel": "应用解析器",
+        "required": true
+      },
+      {
+        "type": "list",
+        "title": "广告组件扫描",
+        "verb": "scan",
+        "empty": "未发现广告相关组件"
+      }
+    ]
+  }
+}

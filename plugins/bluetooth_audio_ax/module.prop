@@ -1,7 +1,0 @@
-id=bluetooth_audio_ax
-name=蓝牙音频增强
-version=1.0.0
-versionCode=1
-author=MJH
-description=蓝牙编码选择/采样率/比特率/LDAC品质/A2DP延迟/绝对音量控制 三档高音质/标准均衡/低延迟通话
-axeronPlugin=1

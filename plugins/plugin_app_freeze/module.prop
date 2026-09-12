@@ -1,7 +1,0 @@
-id=app_freeze_ax
-name=厂商预装冻结精简
-version=1.0.0
-versionCode=1
-author=MJH
-description=批量冻结厂商/运营商预装包/广告推送/云服务冗余，三档深度精简/轻度精简/原厂默认，M3可视化面板，安全可逆无删除
-axeronPlugin=1

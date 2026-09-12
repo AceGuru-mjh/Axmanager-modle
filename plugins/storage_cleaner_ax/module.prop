@@ -1,7 +1,0 @@
-id=storage_cleaner_ax
-name=存储空间清理
-version=1.0.0
-versionCode=1
-author=MJH
-description=应用缓存清理/系统日志清理/APK安装残留/tmp临时文件/缩略图缓存/下载目录冗余 三档深度清理/轻度清理/仅分析
-axeronPlugin=1

@@ -1,0 +1,82 @@
+{
+  "id": "process_guard_ax",
+  "name": "进程查看与清理",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "进程占用排行、按 PID/包名结束进程、降低回收概率（锁定 OOM 需 root）",
+  "description": "免root进程管理 ps查看进程内存占用排行 按PID或包名结束进程 系统关键进程拒绝操作 standby bucket降低回收概率 三档激进清理/温和清理/仅诊断",
+  "subtitle": "进程排行 · 结束进程 · 降低回收概率",
+  "accent": "#f87171",
+  "accent2": "#dc2626",
+  "chips": ["ps 排行", "am kill", "关键进程保护", "OOM 说明"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于进程守护",
+        "text": "真正的进程保活需要 root 写入 /proc/<pid>/oom_score_adj 来锁定内存回收优先级，免 root 无法做到。本插件提供的是进程查看与清理，以及通过待机分组降低被系统回收的概率。PID 小于 2 的系统关键进程会被拒绝结束。"
+      },
+      {
+        "type": "metrics",
+        "title": "进程状态",
+        "verb": "status",
+        "interval": 5000,
+        "fields": [
+          { "key": "procs", "label": "进程总数", "icon": "⚙️" },
+          { "key": "mem", "label": "内存占用", "unit": "%", "bar": true, "icon": "🧠" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "清理力度",
+        "id": "profile",
+        "value": "diagnose",
+        "items": [
+          {
+            "id": "aggressive",
+            "icon": "🧹",
+            "title": "激进清理",
+            "desc": "结束后台进程并收紧进程上限",
+            "tags": ["回收缓存", "结束后台进程", "上限 12", "可能影响体验"]
+          },
+          {
+            "id": "gentle",
+            "icon": "⚖️",
+            "title": "温和清理",
+            "desc": "仅结束后台进程，不影响前台应用",
+            "tags": ["结束后台进程", "保留前台", "推荐"]
+          },
+          {
+            "id": "diagnose",
+            "icon": "🔍",
+            "title": "仅诊断",
+            "desc": "只查看，不结束任何进程",
+            "tags": ["纯只读", "查看占用排行"]
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "指定目标",
+        "id": "target",
+        "label": "PID 或包名",
+        "hint": "输入数字按 PID 结束，输入包名按应用结束",
+        "placeholder": "1234 或 com.example.app",
+        "verb": "killpid",
+        "buttonLabel": "结束该进程",
+        "required": true
+      },
+      {
+        "type": "list",
+        "title": "进程占用排行",
+        "verb": "list",
+        "limit": 20,
+        "empty": "无法获取进程列表"
+      }
+    ]
+  }
+}

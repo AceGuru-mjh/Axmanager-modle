@@ -1,2 +1,9 @@
 # AxManager Plugin Releases
 *.zip.tmp
+
+# 构建产物（由 tools/build.mjs 生成，不需要入库）
+dist/
+
+# 本地临时文件
+.ids.tmp
+.DS_Store

@@ -1,7 +1,0 @@
-id=wifi_boost_ax
-name=WiFi网络增强
-version=1.0.0
-versionCode=1
-author=MJH
-description=WiFi扫描间隔/省电模式/RSSI信号阈值/TCP保活参数/2.4G5G频段策略 三档极速游戏/均衡日常/深度省电
-axeronPlugin=1

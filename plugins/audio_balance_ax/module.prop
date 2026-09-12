@@ -1,7 +1,0 @@
-id=audio_balance_ax
-name=音效音量均衡调节
-version=1.0.0
-versionCode=1
-author=MJH
-description=媒体音量曲线/系统音量上限/通话增益/关闭音量压缩/外放增强prop 三档原声标准/增强低音/通话增益
-axeronPlugin=1

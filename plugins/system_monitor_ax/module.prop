@@ -1,7 +1,0 @@
-id=system_monitor_ax
-name=实时系统监控面板
-version=1.0.0
-versionCode=1
-author=MJH
-description=WebUI仪表盘实时显示CPU使用率/内存占用/电池温度电流/网络速度 自动刷新 一键截图/重启SystemUI/清缓存
-axeronPlugin=1

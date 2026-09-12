@@ -1,7 +1,0 @@
-id=gps_optimizer_ax
-name=GPS定位优化
-version=1.0.0
-versionCode=1
-author=MJH
-description=GPS定位模式/更新间隔/精度阈值/AGPS辅助/WiFi扫描辅助定位 三档高精度导航/均衡日常/省电低功耗
-axeronPlugin=1

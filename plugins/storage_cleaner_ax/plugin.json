@@ -1,0 +1,75 @@
+{
+  "id": "storage_cleaner_ax",
+  "name": "存储空间清理",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "缓存回收、临时文件清理与占用分析（私有缓存需 root，已说明）",
+  "description": "免root空间清理 pm trim-caches回收应用缓存 清理data/local/tmp与缩略图 下载临时文件与日志缓冲区 占用分析列出最大目录 三档深度/轻度/仅分析 实时空间显示",
+  "subtitle": "缓存回收 · 临时文件 · 占用分析",
+  "accent": "#f59e0b",
+  "accent2": "#d97706",
+  "chips": ["trim-caches", "占用分析", "日志清理", "只读分析"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "清理范围",
+        "text": "应用私有缓存位于 /data/data/<包名>/cache，没有 root 无法直接删除。本插件通过 pm trim-caches 让系统通知应用自行削减缓存，并清理 shell 可写的临时目录、缩略图与日志缓冲区，这是免 root 下安全且有效的范围。"
+      },
+      {
+        "type": "metrics",
+        "title": "存储状态",
+        "verb": "status",
+        "interval": 8000,
+        "fields": [
+          { "key": "used", "label": "已用空间", "unit": "%", "bar": true, "icon": "💾" },
+          { "key": "free", "label": "可用空间", "unit": "MB", "icon": "✅" },
+          { "key": "tmp", "label": "临时目录", "unit": "KB", "icon": "🗑" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "清理力度",
+        "id": "profile",
+        "value": "light",
+        "items": [
+          {
+            "id": "deep",
+            "icon": "🧹",
+            "title": "深度清理",
+            "desc": "缓存、临时文件、日志缓冲区全清",
+            "tags": ["回收应用缓存", "清理临时文件", "清空日志缓冲区", "清理公共缓存"]
+          },
+          {
+            "id": "light",
+            "icon": "⚖️",
+            "title": "轻度清理",
+            "desc": "仅回收缓存与临时文件",
+            "tags": ["回收应用缓存", "清理临时文件", "保留日志"]
+          },
+          {
+            "id": "analyze",
+            "icon": "🔍",
+            "title": "仅分析",
+            "desc": "只读展示占用情况，不删除任何文件",
+            "tags": ["纯只读", "列出最大目录", "不改动数据"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "单项清理",
+        "items": [
+          { "icon": "♻️", "label": "回收缓存", "verb": "trim", "showLog": false, "refresh": true },
+          { "icon": "🗑", "label": "清临时文件", "verb": "sweep", "showLog": false, "refresh": true },
+          { "icon": "📜", "label": "清日志缓冲", "verb": "logs", "showLog": false },
+          { "icon": "📊", "label": "占用分析", "verb": "usage" }
+        ]
+      }
+    ]
+  }
+}

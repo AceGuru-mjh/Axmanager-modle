@@ -1,0 +1,75 @@
+{
+  "id": "notification_control_ax",
+  "name": "通知与免打扰",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "悬浮通知 / 免打扰 / 单应用通知权限批量管控，通讯应用豁免",
+  "description": "免root通知管理 heads_up_notifications_enabled悬浮通知 cmd notification set_dnd免打扰 appops POST_NOTIFICATION单应用权限(API33+) 通讯白名单豁免 三档专注模式/标准管理/全部开启",
+  "subtitle": "悬浮通知 · 免打扰 · 单应用权限 · 白名单",
+  "accent": "#c084fc",
+  "accent2": "#a855f7",
+  "chips": ["set_dnd", "POST_NOTIFICATION", "API 33+", "白名单"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "权限说明",
+        "text": "单应用通知权限管控需要 Android 13 (API 33) 及以上，低版本系统会自动跳过该项。通讯类应用已加入白名单，专注模式下依然可以收到消息。"
+      },
+      {
+        "type": "metrics",
+        "title": "状态",
+        "verb": "status",
+        "interval": 10000,
+        "fields": [
+          { "key": "heads", "label": "悬浮通知", "icon": "💬" },
+          { "key": "zen", "label": "免打扰档位", "icon": "🌙" },
+          { "key": "apps", "label": "第三方应用", "icon": "📱" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "通知策略",
+        "id": "profile",
+        "value": "standard",
+        "items": [
+          {
+            "id": "focus",
+            "icon": "🌙",
+            "title": "专注模式",
+            "desc": "关闭悬浮通知，开启免打扰，屏蔽白名单外应用",
+            "tags": ["关闭悬浮通知", "开启免打扰", "屏蔽第三方通知", "白名单保留消息"]
+          },
+          {
+            "id": "standard",
+            "icon": "⚖️",
+            "title": "标准管理",
+            "desc": "开启悬浮通知，关闭免打扰，恢复通知权限",
+            "tags": ["悬浮通知开启", "免打扰关闭", "恢复通知权限"]
+          },
+          {
+            "id": "allon",
+            "icon": "🔔",
+            "title": "全部开启",
+            "desc": "悬浮通知开启，免打扰关闭，不做应用级管控",
+            "tags": ["悬浮通知开启", "免打扰关闭", "不做应用级限制"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "快捷开关",
+        "items": [
+          { "icon": "🌙", "label": "开启免打扰", "verb": "dndon", "showLog": false },
+          { "icon": "🔔", "label": "关闭免打扰", "verb": "dndoff", "showLog": false },
+          { "icon": "♻️", "label": "恢复全部通知", "verb": "restoreall", "showLog": false },
+          { "icon": "🔍", "label": "当前状态", "verb": "zenstate" }
+        ]
+      }
+    ]
+  }
+}

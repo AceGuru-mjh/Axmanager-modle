@@ -1,0 +1,69 @@
+{
+  "id": "app_freeze_ax",
+  "name": "预装冗余冻结",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "扫描并冻结厂商/运营商预装与广告上报组件，关键系统组件受保护",
+  "description": "免root精简系统 扫描匹配预装冗余与广告上报组件 pm disable-user可逆冻结 内置关键组件保护名单 三档深度/轻度/原厂 一键恢复不删除任何文件",
+  "subtitle": "可扫描 · 可冻结 · 可恢复 · 关键组件受保护",
+  "accent": "#34d399",
+  "accent2": "#10b981",
+  "chips": ["pm disable-user", "保护名单", "可逆", "不卸载"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "可逆冻结，不是卸载",
+        "text": "本插件只使用 pm disable-user 停用组件，不删除任何 APK 或数据。SystemUI、设置、电话、输入法等系统关键组件已在保护名单内，不会被误冻结，可随时一键恢复。"
+      },
+      {
+        "type": "metrics",
+        "title": "概览",
+        "verb": "status",
+        "fields": [
+          { "key": "total", "label": "匹配组件", "icon": "🔍" },
+          { "key": "frozen", "label": "已冻结", "icon": "❄️" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "精简力度",
+        "id": "profile",
+        "value": "light",
+        "items": [
+          {
+            "id": "deep",
+            "icon": "🧊",
+            "title": "深度精简",
+            "desc": "冻结全部匹配到的冗余、广告与上报组件",
+            "tags": ["全部匹配项", "广告 SDK", "数据上报", "厂商服务", "效果最明显"]
+          },
+          {
+            "id": "light",
+            "icon": "❄️",
+            "title": "轻度精简",
+            "desc": "仅冻结广告与数据上报类组件",
+            "tags": ["仅广告/上报", "保留厂商服务", "风险最低"]
+          },
+          {
+            "id": "default",
+            "icon": "↩️",
+            "title": "恢复原厂",
+            "desc": "重新启用本插件冻结过的全部组件",
+            "tags": ["启用全部", "清空冻结记录", "恢复原状"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "扫描结果",
+        "verb": "scan",
+        "empty": "未发现匹配的冗余组件"
+      }
+    ]
+  }
+}

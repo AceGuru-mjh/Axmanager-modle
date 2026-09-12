@@ -1,7 +1,0 @@
-id=logcat_toolbox_ax
-name=Logcat日志工具箱
-version=1.0.0
-versionCode=1
-author=MJH
-description=实时查看/按标签过滤/导出日志文件/一键清理日志缓冲区/导出dumpsys诊断包 Shell UID直接访问Android日志系统
-axeronPlugin=1

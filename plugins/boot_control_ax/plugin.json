@@ -1,0 +1,71 @@
+{
+  "id": "boot_control_ax",
+  "name": "开机自启管控",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "组件级停用 BOOT_COMPLETED 接收器，应用仍可手动打开，可一键恢复",
+  "description": "免root自启管理 query-intent-receivers扫描开机广播接收器 组件级pm disable-user停用 不影响手动启动 通讯应用白名单豁免 三档激进控制/智能管理/全部放行",
+  "subtitle": "组件级停用 · 可手动打开 · 白名单豁免",
+  "accent": "#f472b6",
+  "accent2": "#ec4899",
+  "chips": ["query-intent-receivers", "组件级", "白名单", "可恢复"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "组件级而非应用级",
+        "text": "本插件停用单个广播接收器组件，不冻结整个应用，因此应用依然可以正常手动打开和使用，只是不再随开机自动拉起。系统应用的自启组件通常受保护，停用会被拒绝，扫描结果会如实显示状态。"
+      },
+      {
+        "type": "metrics",
+        "title": "概览",
+        "verb": "status",
+        "interval": 20000,
+        "fields": [
+          { "key": "total", "label": "开机自启组件", "icon": "🔍" },
+          { "key": "frozen", "label": "已停用", "icon": "⛔" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "管控力度",
+        "id": "profile",
+        "value": "smart",
+        "items": [
+          {
+            "id": "aggressive",
+            "icon": "⛔",
+            "title": "激进控制",
+            "desc": "停用全部可停用的开机自启组件",
+            "tags": ["含系统应用", "效果最强", "可能影响推送"]
+          },
+          {
+            "id": "smart",
+            "icon": "🧠",
+            "title": "智能管理",
+            "desc": "仅停用第三方应用的开机自启",
+            "tags": ["仅第三方应用", "白名单豁免", "推荐"]
+          },
+          {
+            "id": "allowall",
+            "icon": "✅",
+            "title": "全部放行",
+            "desc": "恢复此前停用的全部开机自启组件",
+            "tags": ["恢复全部", "清空停用清单"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "自启组件清单",
+        "verb": "scan",
+        "limit": 80,
+        "empty": "未发现开机自启组件"
+      }
+    ]
+  }
+}

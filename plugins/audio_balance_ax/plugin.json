@@ -1,0 +1,71 @@
+{
+  "id": "audio_balance_ax",
+  "name": "音量与声道平衡",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "显示与音频",
+  "summary": "各音频流音量、左右声道平衡与触感反馈控制",
+  "description": "免root音频调节 media volume各音频流音量(通话/系统/铃声/媒体/闹钟/通知/蓝牙) master_balance左右声道平衡 触摸音效与振动开关 三档原声标准/增强/通话增益 实时音量状态",
+  "subtitle": "多流音量 · 声道平衡 · 触感反馈",
+  "accent": "#f472b6",
+  "accent2": "#db2777",
+  "chips": ["media volume", "master_balance", "7 个音频流", "可回滚"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于音量上限",
+        "text": "Android 的「安全音量」策略会在长时间使用耳机时限制最大音量，这是系统级保护，任何免 root 手段都无法绕过。通话音量同样受运营商与系统策略约束。"
+      },
+      {
+        "type": "metrics",
+        "title": "音量状态",
+        "verb": "status",
+        "interval": 8000,
+        "fields": [
+          { "key": "music", "label": "媒体", "icon": "🎵" },
+          { "key": "ring", "label": "铃声", "icon": "🔔" },
+          { "key": "call", "label": "通话", "icon": "📞" },
+          { "key": "balance", "label": "声道平衡", "icon": "⚖️" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "音频档位",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "balanced",
+            "icon": "🎵",
+            "title": "原声标准",
+            "desc": "中等音量，声道居中，保留触感反馈",
+            "tags": ["媒体 8", "铃声 6", "声道居中", "保留触感反馈"]
+          },
+          {
+            "id": "boost",
+            "icon": "🔊",
+            "title": "增强",
+            "desc": "抬升全部音量，关闭触摸音效与振动",
+            "tags": ["媒体 14", "铃声 10", "关闭音效", "注意听力保护"]
+          },
+          {
+            "id": "callgain",
+            "icon": "📞",
+            "title": "通话增益",
+            "desc": "抬升通话与蓝牙音量，降低媒体音量",
+            "tags": ["通话 15", "蓝牙 15", "媒体 6", "适合通话场景"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "工具",
+        "items": [{ "icon": "🔍", "label": "音量明细", "verb": "dump" }]
+      }
+    ]
+  }
+}

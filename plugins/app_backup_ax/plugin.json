@@ -1,0 +1,57 @@
+{
+  "id": "app_backup_ax",
+  "name": "应用备份与恢复",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "应用管理",
+  "summary": "备份 APK 与公共存储数据，恢复时重新安装并还原（私有数据需 root）",
+  "description": "免root应用备份 导出APK本体 备份sdcard/Android/data|media|obb公共数据 保存版本元数据 支持单应用与全量备份 恢复时重新安装并还原数据 如实说明私有数据限制",
+  "subtitle": "APK + 公共数据备份 · 一键恢复",
+  "accent": "#60a5fa",
+  "accent2": "#2563eb",
+  "chips": ["pm path", "tar 打包", "单应用/全量", "可恢复"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "备份范围说明",
+        "text": "应用私有数据位于 /data/data/<包名>，权限为 0700，没有 root 无法读取，这部分内容任何免 root 方案都备份不了。本插件备份的是 APK 本体与公共存储中的应用数据（/sdcard/Android 下），恢复时重新安装 APK 并还原数据。"
+      },
+      {
+        "type": "metrics",
+        "title": "备份概览",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "backups", "label": "已备份应用", "icon": "💾" },
+          { "key": "size", "label": "占用空间", "unit": "MB", "icon": "📦" },
+          { "key": "apps", "label": "第三方应用", "icon": "📱" }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "单应用操作",
+        "id": "target",
+        "label": "目标包名",
+        "hint": "备份或恢复指定应用，填写完整包名",
+        "placeholder": "com.example.app",
+        "verb": "backup",
+        "buttonLabel": "备份该应用",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "批量工具",
+        "items": [
+          { "icon": "💾", "label": "备份全部应用", "verb": "backupall", "refresh": true },
+          { "icon": "📋", "label": "备份列表", "verb": "list" },
+          { "icon": "🗑", "label": "清空备份", "verb": "wipe", "confirm": "将删除 /sdcard/ax_backup 下的全部备份文件，此操作不可恢复。", "refresh": true }
+        ]
+      }
+    ]
+  }
+}

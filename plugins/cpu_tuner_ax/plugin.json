@@ -1,0 +1,79 @@
+{
+  "id": "cpu_tuner_ax",
+  "name": "CPU 调度与性能模式",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统调优",
+  "summary": "以官方 power / thermalservice 接口调节调度与节流，附 ART 预编译提速",
+  "description": "免root调节CPU调度：固定高性能模式(API30+)/温控节流覆盖/缓存进程冻结器/后台进程上限/ART speed预编译 三档性能优先-均衡日常-省电续航 全部改动可一键回滚",
+  "subtitle": "固定高性能 · 温控覆盖 · 冻结器 · ART 预编译",
+  "accent": "#fb7185",
+  "accent2": "#f97316",
+  "chips": ["cmd power", "thermalservice", "冻结器", "ART 编译"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "关于 CPU 调频的真相",
+        "text": "调速器与频率上下限位于 /sys，写入需要 root，AxManager 环境下无法修改 —— 任何声称免 root 改调速器的插件都是无效操作。本插件改用系统官方提供的 shell 级调度接口，效果真实可验证。"
+      },
+      {
+        "type": "metrics",
+        "title": "实时状态",
+        "verb": "status",
+        "interval": 3000,
+        "fields": [
+          { "key": "freq", "label": "频率水位", "unit": "%", "bar": true, "icon": "⚡" },
+          { "key": "temp", "label": "电池温度", "unit": "℃", "icon": "🌡" },
+          { "key": "cores", "label": "核心数", "icon": "🧩" },
+          { "key": "load", "label": "1 分钟负载", "icon": "📈" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "调度档位",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "performance",
+            "icon": "🚀",
+            "title": "性能优先",
+            "desc": "锁定高性能调度，解除温控节流，关闭冻结器",
+            "tags": ["固定高性能模式", "温控节流 0 档", "冻结器关闭", "后台上限 128", "动画 0.5x", "高发热"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡日常",
+            "desc": "系统自适应调度，开启冻结器，优化响应感知",
+            "tags": ["系统自适应", "温控系统托管", "冻结器开启", "后台上限 32", "动画 0.8x"]
+          },
+          {
+            "id": "battery",
+            "icon": "🔋",
+            "title": "省电续航",
+            "desc": "开启系统省电模式，收紧后台进程上限",
+            "tags": ["省电模式开启", "自适应电池", "冻结器开启", "后台上限 16", "动画 1x"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "附加工具",
+        "items": [
+          {
+            "icon": "🔧",
+            "label": "ART 预编译",
+            "verb": "compile",
+            "confirm": "将对最多 25 个第三方应用执行 speed 模式 AOT 编译，可提升启动与运行速度，会占用额外存储空间并耗时数分钟。"
+          },
+          { "icon": "🧩", "label": "查看核心信息", "verb": "coreinfo" }
+        ]
+      }
+    ]
+  }
+}

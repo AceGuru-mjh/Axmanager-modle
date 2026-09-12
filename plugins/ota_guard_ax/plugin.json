@@ -1,0 +1,70 @@
+{
+  "id": "ota_guard_ax",
+  "name": "OTA 升级阻断",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "系统工具",
+  "summary": "扫描并停用系统与厂商的 OTA / FOTA 更新组件，可随时恢复",
+  "description": "免root阻断系统升级 扫描匹配OTA/FOTA/更新服务包名 pm disable-user可逆停用 GMS系统更新组件级停用 内置关键组件保护 三档全面阻断/轻度拦截/临时放行",
+  "subtitle": "扫描更新组件 · 可逆停用 · 一键放行",
+  "accent": "#f87171",
+  "accent2": "#ef4444",
+  "chips": ["pm disable-user", "GMS 组件级", "保护名单", "可逆"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "阻断方式",
+        "text": "通过停用更新组件实现阻断，不删除任何数据，随时可恢复。部分厂商的更新服务受系统保护，停用会被拒绝，界面会如实显示「允许更新」。系统关键组件在保护名单内，不会被误停用。"
+      },
+      {
+        "type": "metrics",
+        "title": "概览",
+        "verb": "status",
+        "interval": 15000,
+        "fields": [
+          { "key": "total", "label": "发现更新组件", "icon": "🔍" },
+          { "key": "blocked", "label": "已阻断", "icon": "🚫" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "阻断力度",
+        "id": "profile",
+        "value": "blockall",
+        "items": [
+          {
+            "id": "blockall",
+            "icon": "🚫",
+            "title": "全面阻断",
+            "desc": "停用全部匹配到的更新组件与 GMS 更新服务",
+            "tags": ["全部更新包名", "GMS 更新组件", "效果最强", "需手动检查更新"]
+          },
+          {
+            "id": "light",
+            "icon": "🛡",
+            "title": "轻度拦截",
+            "desc": "仅停用静默下载与自动安装相关组件",
+            "tags": ["仅自动更新", "保留手动检查", "推荐"]
+          },
+          {
+            "id": "allowall",
+            "icon": "✅",
+            "title": "临时放行",
+            "desc": "重新启用此前被停用的全部更新组件",
+            "tags": ["启用全部", "恢复官方更新", "清空阻断记录"]
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "扫描结果",
+        "verb": "scan",
+        "empty": "未发现系统更新组件"
+      }
+    ]
+  }
+}

@@ -1,7 +1,0 @@
-id=memory_cleaner_ax
-name=内存释放优化
-version=1.0.0
-versionCode=1
-author=MJH
-description=LMK内存回收参数/Dalvik堆大小/ZRAM压缩/缓存上限/后台进程限制 三档激进回收/均衡日常/多任务保活
-axeronPlugin=1

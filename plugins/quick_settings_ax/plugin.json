@@ -1,0 +1,55 @@
+{
+  "id": "quick_settings_ax",
+  "name": "快捷开关面板",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "Wi-Fi / 数据 / 蓝牙 / NFC / 飞行模式 / 旋转等系统开关集中控制",
+  "description": "免root快捷开关 svc命令直接开关Wi-Fi移动数据蓝牙NFC 飞行模式广播控制 自动亮度与自动旋转 实时显示各开关状态 全部使用系统内置接口",
+  "subtitle": "系统开关 · 实时状态 · 集中控制",
+  "accent": "#4ade80",
+  "accent2": "#15803d",
+  "chips": ["svc", "飞行模式", "自动旋转", "实时状态"],
+  "ui": {
+    "apply": false,
+    "revert": false,
+    "sections": [
+      {
+        "type": "note",
+        "heading": "开关说明",
+        "text": "全部开关通过系统内置的 svc 命令与全局设置实现。飞行模式需要配合系统广播才能生效，Wi-Fi 与移动数据的实际状态以系统显示为准。"
+      },
+      {
+        "type": "metrics",
+        "title": "当前状态",
+        "verb": "status",
+        "interval": 5000,
+        "fields": [
+          { "key": "wifi", "label": "Wi-Fi", "icon": "📶" },
+          { "key": "data", "label": "移动数据", "icon": "📡" },
+          { "key": "bt", "label": "蓝牙", "icon": "🎧" },
+          { "key": "nfc", "label": "NFC", "icon": "💳" },
+          { "key": "airplane", "label": "飞行模式", "icon": "✈️" },
+          { "key": "autobright", "label": "自动亮度", "icon": "🔆" },
+          { "key": "rotate", "label": "自动旋转", "icon": "🔄" }
+        ]
+      },
+      {
+        "type": "switches",
+        "title": "快捷开关",
+        "items": [
+          { "id": "wifi", "label": "Wi-Fi", "desc": "开启或关闭无线网络", "verb": "wifi" },
+          { "id": "data", "label": "移动数据", "desc": "开启或关闭蜂窝数据", "verb": "data" },
+          { "id": "bt", "label": "蓝牙", "desc": "开启或关闭蓝牙", "verb": "bt" },
+          { "id": "nfc", "label": "NFC", "desc": "开启或关闭 NFC", "verb": "nfc" },
+          { "id": "airplane", "label": "飞行模式", "desc": "开启或关闭飞行模式", "verb": "airplane" },
+          { "id": "autobright", "label": "自动亮度", "desc": "由系统自动调节屏幕亮度", "verb": "autobright" },
+          { "id": "rotate", "label": "自动旋转", "desc": "根据设备方向自动旋转屏幕", "verb": "rotation" },
+          { "id": "stayon", "label": "充电常亮", "desc": "充电时保持屏幕唤醒", "verb": "stayon" }
+        ]
+      }
+    ]
+  }
+}

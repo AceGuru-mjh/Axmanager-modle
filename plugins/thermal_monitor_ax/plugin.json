@@ -1,0 +1,80 @@
+{
+  "id": "thermal_monitor_ax",
+  "name": "温度与节流监控",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "读取真实温区温度与节流状态，支持手动覆盖节流档位",
+  "description": "免root温控监控 dumpsys thermalservice节流状态 读取全部温区真实温度 电池温度与热状态等级 手动覆盖节流档位0-6 四档系统托管/禁用节流/轻度降温/强力降温",
+  "subtitle": "温区温度 · 节流状态 · 手动覆盖",
+  "accent": "#fb923c",
+  "accent2": "#c2410c",
+  "chips": ["thermalservice", "温区读取", "节流覆盖", "实时刷新"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "数据来源",
+        "text": "温度直接来自系统 Thermal HAL 与各温区节点，是设备的真实读数。节流档位覆盖是系统提供的调试接口，0 档为不节流，档位越高降功率越明显。长时间解除节流会加速电池老化。"
+      },
+      {
+        "type": "metrics",
+        "title": "温度状态",
+        "verb": "status",
+        "interval": 4000,
+        "fields": [
+          { "key": "batt", "label": "电池温度", "unit": "℃", "icon": "🔋" },
+          { "key": "cpu", "label": "CPU 温区", "unit": "℃", "icon": "🔥" },
+          { "key": "status", "label": "节流等级", "icon": "📊" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "节流策略",
+        "id": "profile",
+        "value": "auto",
+        "items": [
+          {
+            "id": "auto",
+            "icon": "⚙️",
+            "title": "系统托管",
+            "desc": "清除手动覆盖，由系统按原设计节流",
+            "tags": ["恢复系统托管", "安全默认", "推荐日常使用"]
+          },
+          {
+            "id": "nolimit",
+            "icon": "🔥",
+            "title": "禁用节流",
+            "desc": "覆盖为 0 档，不因温度降功率",
+            "tags": ["节流 0 档", "性能优先", "高温风险"]
+          },
+          {
+            "id": "cool1",
+            "icon": "❄️",
+            "title": "轻度降温",
+            "desc": "覆盖为 2 档，适度降功率",
+            "tags": ["节流 2 档", "平衡温度与性能"]
+          },
+          {
+            "id": "cool2",
+            "icon": "🧊",
+            "title": "强力降温",
+            "desc": "覆盖为 4 档，明显降功率",
+            "tags": ["节流 4 档", "快速降温", "性能下降"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "详细信息",
+        "items": [
+          { "icon": "🌡", "label": "温控服务状态", "verb": "dump" },
+          { "icon": "📊", "label": "各温区温度", "verb": "zones" }
+        ]
+      }
+    ]
+  }
+}

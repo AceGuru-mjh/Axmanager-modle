@@ -1,7 +1,0 @@
-id=background_optimize_ax
-name=APP后台管控优化
-version=1.0.0
-versionCode=1
-author=MJH
-description=批量关闭自启动/限制后台活动/抑制唤醒/限制后台网络，三档激进/均衡/宽松策略，M3可视化面板，白名单保护IM通讯
-axeronPlugin=1

@@ -1,0 +1,76 @@
+{
+  "id": "battery_guardian_ax",
+  "name": "电池守护",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "新增玩法",
+  "summary": "省电阈值、自适应电池、唤醒锁与待机分组组合的续航方案",
+  "description": "免root电池守护 low_power_trigger_level省电触发阈值 自适应电池与缓存进程冻结器 待机分组与唤醒锁管控 实时电量温度电压与健康度 耗电排行与唤醒锁诊断 三档长续航/均衡/性能",
+  "subtitle": "省电阈值 · 唤醒锁 · 待机分组 · 耗电排行",
+  "accent": "#4ade80",
+  "accent2": "#15803d",
+  "chips": ["low_power", "WAKE_LOCK", "batterystats", "白名单"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "续航手段",
+        "text": "续航优化主要来自三处：提高省电模式的触发电量、限制应用在息屏后唤醒设备、降低系统在资源紧张时保留后台应用的倾向。本插件把这三者组合成档位，通讯应用默认豁免以免漏收消息。"
+      },
+      {
+        "type": "metrics",
+        "title": "电池状态",
+        "verb": "status",
+        "interval": 5000,
+        "fields": [
+          { "key": "level", "label": "电量", "unit": "%", "bar": true, "icon": "🔋" },
+          { "key": "temp", "label": "温度", "unit": "℃", "icon": "🌡" },
+          { "key": "volt", "label": "电压", "unit": "mV", "icon": "⚡" },
+          { "key": "health", "label": "健康度", "icon": "🩺" },
+          { "key": "trigger", "label": "省电阈值", "unit": "%", "icon": "📉" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "续航策略",
+        "id": "profile",
+        "value": "balanced",
+        "items": [
+          {
+            "id": "endurance",
+            "icon": "🔋",
+            "title": "长续航",
+            "desc": "提高省电阈值，限制后台与唤醒锁",
+            "tags": ["阈值 40%", "待机分组 rare", "禁止唤醒锁", "省电最明显"]
+          },
+          {
+            "id": "balanced",
+            "icon": "⚖️",
+            "title": "均衡",
+            "desc": "系统默认阈值，允许常规后台活动",
+            "tags": ["阈值 15%", "working_set 分组", "允许唤醒锁"]
+          },
+          {
+            "id": "performance",
+            "icon": "🚀",
+            "title": "性能优先",
+            "desc": "关闭省电与限制，换取流畅度",
+            "tags": ["关闭省电", "active 分组", "关闭冻结器", "耗电增加"]
+          }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "诊断",
+        "items": [
+          { "icon": "🔋", "label": "电池信息", "verb": "battinfo" },
+          { "icon": "📉", "label": "耗电排行", "verb": "drain" },
+          { "icon": "🔒", "label": "唤醒锁", "verb": "wakelocks" }
+        ]
+      }
+    ]
+  }
+}
