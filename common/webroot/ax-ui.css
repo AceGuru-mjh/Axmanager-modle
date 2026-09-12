@@ -760,6 +760,16 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .ax-li:last-child { border-bottom: none; }
+
+/* 可点击的行（list 声明 clickVerb 时启用），仅视觉增强，不影响既有列表 */
+.ax-li-tap {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background .25s var(--ax-ease);
+}
+
+.ax-li-tap:active { background: rgb(var(--ax-a) / .12); }
 .ax-li-txt { flex: 1; min-width: 0; }
 .ax-li-t { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ax-li-d { margin-top: 2px; font-size: 11px; color: var(--ax-on-dim); word-break: break-all; }

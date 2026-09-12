@@ -128,88 +128,89 @@ v2 是对整个仓库的一次重写，而不是增补。改动集中在四件�
 ## 插件列表
 
 <!-- STATS:START -->
-当前共 **38** 个插件，分为 7 类：
+当前共 **39** 个插件，分为 7 类：
 
-![⚙️ 系统调优](https://img.shields.io/badge/%E2%9A%99%EF%B8%8F%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98-7-orange?style=flat-square) ![🌐 网络优化](https://img.shields.io/badge/%F0%9F%8C%90%20%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96-4-orange?style=flat-square) ![🎨 显示与音频](https://img.shields.io/badge/%F0%9F%8E%A8%20%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9F%B3%E9%A2%91-3-orange?style=flat-square) ![📦 应用管理](https://img.shields.io/badge/%F0%9F%93%A6%20%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86-7-orange?style=flat-square) ![🛠 系统工具](https://img.shields.io/badge/%F0%9F%9B%A0%20%E7%B3%BB%E7%BB%9F%E5%B7%A5%E5%85%B7-6-orange?style=flat-square) ![🧩 扩展插件](https://img.shields.io/badge/%F0%9F%A7%A9%20%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6-4-orange?style=flat-square) ![✨ 新增玩法](https://img.shields.io/badge/%E2%9C%A8%20%E6%96%B0%E5%A2%9E%E7%8E%A9%E6%B3%95-7-orange?style=flat-square)
+![⚙️ 系统调优](https://img.shields.io/badge/%E2%9A%99%EF%B8%8F%20%E7%B3%BB%E7%BB%9F%E8%B0%83%E4%BC%98-7-orange?style=flat-square) ![🌐 网络优化](https://img.shields.io/badge/%F0%9F%8C%90%20%E7%BD%91%E7%BB%9C%E4%BC%98%E5%8C%96-4-orange?style=flat-square) ![🎨 显示与音频](https://img.shields.io/badge/%F0%9F%8E%A8%20%E6%98%BE%E7%A4%BA%E4%B8%8E%E9%9F%B3%E9%A2%91-4-orange?style=flat-square) ![📦 应用管理](https://img.shields.io/badge/%F0%9F%93%A6%20%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86-7-orange?style=flat-square) ![🛠 系统工具](https://img.shields.io/badge/%F0%9F%9B%A0%20%E7%B3%BB%E7%BB%9F%E5%B7%A5%E5%85%B7-6-orange?style=flat-square) ![🧩 扩展插件](https://img.shields.io/badge/%F0%9F%A7%A9%20%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6-4-orange?style=flat-square) ![✨ 新增玩法](https://img.shields.io/badge/%E2%9C%A8%20%E6%96%B0%E5%A2%9E%E7%8E%A9%E6%B3%95-7-orange?style=flat-square)
 
 <!-- STATS:END -->
 
 <!-- PLUGINS:START -->
-> 点击**模块名**即可下载对应的 zip（当前版本 `v2.0.0`）；
+> 点击**模块名**即可下载对应的 zip（当前版本 `v2.1.0`）；
 > 也可前往 [Releases 页面](https://github.com/AceGuru-mjh/Axmanager-modle/releases/latest) 一次性下载全部。
 
 ### ⚙️ 系统调优
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**charge_thermal_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/charge_thermal_ax.zip) | 覆盖温控节流档位、省电触发阈值与充电保持唤醒（充电电流需 root） | `thermalservice` `low_power` `实时电流` |
-| [**cpu_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/cpu_tuner_ax.zip) | 以官方 power / thermalservice 接口调节调度与节流，附 ART 预编译提速 | `cmd power` `thermalservice` `冻结器` |
-| [**doze_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/doze_tuner_ax.zip) | 以 standby bucket 与后台运行权限管控待机耗电，通讯应用自动豁免 | `standby bucket` `appops` `白名单` |
-| [**gpu_tune_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/gpu_tune_ax.zip) | 调节屏幕刷新率上限与合成负载，替代无效的免 root GPU 超频 | `peak_refresh_rate` `自适应刷新率` `60/120Hz` |
-| [**memory_cleaner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/memory_cleaner_ax.zip) | trim-caches 回收 + 后台进程清理 + 临时文件清理，含只读分析模式 | `trim-caches` `am kill` `/data/local/tmp` |
-| [**sensor_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/sensor_tuner_ax.zip) | 管控调用传感器的体感功能以降低待机耗电（采样率需 root，已说明） | `doze_pulse` `wake_gesture` `省电` |
-| [**swap_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/swap_tuner_ax.zip) | 以缓存进程上限与冻结器调节内存压力（ZRAM 需 root，已如实说明） | `activity_manager` `freezer` `trim-caches` |
+| [**charge_thermal_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/charge_thermal_ax.zip) | 覆盖温控节流档位、省电触发阈值与充电保持唤醒（充电电流需 root） | `thermalservice` `low_power` `实时电流` |
+| [**cpu_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/cpu_tuner_ax.zip) | 以官方 power / thermalservice 接口调节调度与节流，附 ART 预编译提速 | `cmd power` `thermalservice` `冻结器` |
+| [**doze_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/doze_tuner_ax.zip) | 以 standby bucket 与后台运行权限管控待机耗电，通讯应用自动豁免 | `standby bucket` `appops` `白名单` |
+| [**gpu_tune_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/gpu_tune_ax.zip) | 调节屏幕刷新率上限与合成负载，替代无效的免 root GPU 超频 | `peak_refresh_rate` `自适应刷新率` `60/120Hz` |
+| [**memory_cleaner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/memory_cleaner_ax.zip) | trim-caches 回收 + 后台进程清理 + 临时文件清理，含只读分析模式 | `trim-caches` `am kill` `/data/local/tmp` |
+| [**sensor_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/sensor_tuner_ax.zip) | 管控调用传感器的体感功能以降低待机耗电（采样率需 root，已说明） | `doze_pulse` `wake_gesture` `省电` |
+| [**swap_tuner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/swap_tuner_ax.zip) | 以缓存进程上限与冻结器调节内存压力（ZRAM 需 root，已如实说明） | `activity_manager` `freezer` `trim-caches` |
 
 ### 🌐 网络优化
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**bluetooth_audio_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/bluetooth_audio_ax.zip) | 蓝牙开关、后台扫描、媒体与 SCO 音量、声道平衡（编解码需 root） | `svc bluetooth` `media volume` `master_balance` |
-| [**network_optimize_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/network_optimize_ax.zip) | 私有 DNS (DoT) / 息屏网络策略 / 后台扫描管控（TCP 参数需 root） | `Private DNS` `DoT` `wifi_sleep_policy` |
-| [**proxy_switch_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/proxy_switch_ax.zip) | 系统级 HTTP 代理切换与排除列表管理，支持自定义与一键直连 | `http_proxy` `排除列表` `抓包` |
-| [**wifi_boost_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/wifi_boost_ax.zip) | 减少系统断网与自动切网行为，提升实际可用体验（信号强度需 root） | `wifi_sleep_policy` `watchdog` `avoid_bad_wifi` |
+| [**bluetooth_audio_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/bluetooth_audio_ax.zip) | 蓝牙开关、后台扫描、媒体与 SCO 音量、声道平衡（编解码需 root） | `svc bluetooth` `media volume` `master_balance` |
+| [**network_optimize_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/network_optimize_ax.zip) | 私有 DNS (DoT) / 息屏网络策略 / 后台扫描管控（TCP 参数需 root） | `Private DNS` `DoT` `wifi_sleep_policy` |
+| [**proxy_switch_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/proxy_switch_ax.zip) | 系统级 HTTP 代理切换与排除列表管理，支持自定义与一键直连 | `http_proxy` `排除列表` `抓包` |
+| [**wifi_boost_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/wifi_boost_ax.zip) | 减少系统断网与自动切网行为，提升实际可用体验（信号强度需 root） | `wifi_sleep_policy` `watchdog` `avoid_bad_wifi` |
 
 ### 🎨 显示与音频
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**audio_balance_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/audio_balance_ax.zip) | 各音频流音量、左右声道平衡与触感反馈控制 | `media volume` `master_balance` `7 个音频流` |
-| [**display_color_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/display_color_ax.zip) | 亮度 / 自动亮度 / 夜间色温 / 灰度 / 色彩反转（饱和度需 root） | `night_display` `灰度` `色彩反转` |
-| [**reading_mode_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/reading_mode_ax.zip) | 灰度显示、夜间色温、色彩反转与亮度组合的护眼方案 | `灰度显示` `night_display` `色彩反转` |
+| [**audio_balance_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/audio_balance_ax.zip) | 各音频流音量、左右声道平衡与触感反馈控制 | `media volume` `master_balance` `7 个音频流` |
+| [**display_color_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/display_color_ax.zip) | 亮度 / 自动亮度 / 夜间色温 / 灰度 / 色彩反转（饱和度需 root） | `night_display` `灰度` `色彩反转` |
+| [**reading_mode_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/reading_mode_ax.zip) | 灰度显示、夜间色温、色彩反转与亮度组合的护眼方案 | `灰度显示` `night_display` `色彩反转` |
+| [**ui_customizer_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/ui_customizer_ax.zip) | 状态栏图标显隐、字号与字重、暗色模式与通知音效选择，全部可逆 | `icon_blacklist` `font_scale` `ui_night_mode` |
 
 ### 📦 应用管理
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**apk_manager_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/apk_manager_ax.zip) | 导出已安装 APK、审计危险权限、查看应用清单（系统应用卸载需 root） | `pm path` `权限审计` `批量导出` |
-| [**app_backup_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/app_backup_ax.zip) | 备份 APK 与公共存储数据，恢复时重新安装并还原（私有数据需 root） | `pm path` `tar 打包` `单应用/全量` |
-| [**app_freeze_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/app_freeze_ax.zip) | 扫描并冻结厂商/运营商预装与广告上报组件，关键系统组件受保护 | `pm disable-user` `保护名单` `可逆` |
-| [**boot_control_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/boot_control_ax.zip) | 组件级停用 BOOT_COMPLETED 接收器，应用仍可手动打开，可一键恢复 | `query-intent-receivers` `组件级` `白名单` |
-| [**notification_control_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/notification_control_ax.zip) | 悬浮通知 / 免打扰 / 单应用通知权限批量管控，通讯应用豁免 | `set_dnd` `POST_NOTIFICATION` `API 33+` |
-| [**process_guard_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/process_guard_ax.zip) | 进程占用排行、按 PID/包名结束进程、降低回收概率（锁定 OOM 需 root） | `ps 排行` `am kill` `关键进程保护` |
-| [**storage_cleaner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/storage_cleaner_ax.zip) | 缓存回收、临时文件清理与占用分析（私有缓存需 root，已说明） | `trim-caches` `占用分析` `日志清理` |
+| [**apk_manager_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/apk_manager_ax.zip) | 导出已安装 APK、审计危险权限、查看应用清单（系统应用卸载需 root） | `pm path` `权限审计` `批量导出` |
+| [**app_backup_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/app_backup_ax.zip) | 备份 APK 与公共存储数据，恢复时重新安装并还原（私有数据需 root） | `pm path` `tar 打包` `单应用/全量` |
+| [**app_freeze_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/app_freeze_ax.zip) | 扫描并冻结厂商/运营商预装与广告上报组件，关键系统组件受保护 | `pm disable-user` `保护名单` `可逆` |
+| [**boot_control_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/boot_control_ax.zip) | 组件级停用 BOOT_COMPLETED 接收器，应用仍可手动打开，可一键恢复 | `query-intent-receivers` `组件级` `白名单` |
+| [**notification_control_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/notification_control_ax.zip) | 悬浮通知 / 免打扰 / 单应用通知权限批量管控，通讯应用豁免 | `set_dnd` `POST_NOTIFICATION` `API 33+` |
+| [**process_guard_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/process_guard_ax.zip) | 进程占用排行、按 PID/包名结束进程、降低回收概率（锁定 OOM 需 root） | `ps 排行` `am kill` `关键进程保护` |
+| [**storage_cleaner_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/storage_cleaner_ax.zip) | 缓存回收、临时文件清理与占用分析（私有缓存需 root，已说明） | `trim-caches` `占用分析` `日志清理` |
 
 ### 🛠 系统工具
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**adb_toolbox_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/adb_toolbox_ax.zip) | 截图、录屏、DPI/分辨率、网络开关、重启 SystemUI 与设备信息 | `screencap` `screenrecord` `wm` |
-| [**game_toolbox_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/game_toolbox_ax.zip) | 为游戏准备运行环境：高性能调度、节流、免打扰、释放内存（画质由游戏决定） | `fixed perf mode` `DND` `温控覆盖` |
-| [**gps_optimizer_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/gps_optimizer_ax.zip) | 定位模式、定位源与扫描辅助开关（GPS 更新频率需 root，已说明） | `location_mode` `providers` `扫描辅助` |
-| [**logcat_toolbox_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/logcat_toolbox_ax.zip) | 按级别/标签/关键词过滤日志，导出日志与系统诊断信息 | `logcat` `标签过滤` `导出文件` |
-| [**ota_guard_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/ota_guard_ax.zip) | 扫描并停用系统与厂商的 OTA / FOTA 更新组件，可随时恢复 | `pm disable-user` `GMS 组件级` `保护名单` |
-| [**system_monitor_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/system_monitor_ax.zip) | CPU / 内存 / 电池 / 存储 / 网络速率实时仪表盘，含截图与缓存回收 | `/proc 采样` `dumpsys` `3s 刷新` |
+| [**adb_toolbox_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/adb_toolbox_ax.zip) | 截图、录屏、DPI/分辨率、网络开关、重启 SystemUI 与设备信息 | `screencap` `screenrecord` `wm` |
+| [**game_toolbox_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/game_toolbox_ax.zip) | 为游戏准备运行环境：高性能调度、节流、免打扰、释放内存（画质由游戏决定） | `fixed perf mode` `DND` `温控覆盖` |
+| [**gps_optimizer_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/gps_optimizer_ax.zip) | 定位模式、定位源与扫描辅助开关（GPS 更新频率需 root，已说明） | `location_mode` `providers` `扫描辅助` |
+| [**logcat_toolbox_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/logcat_toolbox_ax.zip) | 按级别/标签/关键词过滤日志，导出日志与系统诊断信息 | `logcat` `标签过滤` `导出文件` |
+| [**ota_guard_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/ota_guard_ax.zip) | 扫描并停用系统与厂商的 OTA / FOTA 更新组件，可随时恢复 | `pm disable-user` `GMS 组件级` `保护名单` |
+| [**system_monitor_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/system_monitor_ax.zip) | CPU / 内存 / 电池 / 存储 / 网络速率实时仪表盘，含截图与缓存回收 | `/proc 采样` `dumpsys` `3s 刷新` |
 
 ### 🧩 扩展插件
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**ad_block_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/ad_block_ax.zip) | 过滤型私有 DNS 拦截 + 停用广告追踪组件（hosts 需 root，已说明） | `DoT 拦截` `组件停用` `自定义 DNS` |
-| [**background_optimize_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/background_optimize_ax.zip) | 待机分组、后台运行与唤醒锁管控，通讯应用白名单豁免 | `standby bucket` `WAKE_LOCK` `白名单` |
-| [**game_gpu_tune_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/game_gpu_tune_ax.zip) | 识别已安装游戏并做 AOT 编译与豁免，配合刷新率与温控策略 | `speed 编译` `自动识别` `刷新率` |
-| [**system_ui_tweak_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/system_ui_tweak_ax.zip) | 沉浸全屏、显示密度、导航栏布局与状态栏微调，全部可逆 | `immersive` `wm density` `nav_bar` |
+| [**ad_block_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/ad_block_ax.zip) | 过滤型私有 DNS 拦截 + 停用广告追踪组件（hosts 需 root，已说明） | `DoT 拦截` `组件停用` `自定义 DNS` |
+| [**background_optimize_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/background_optimize_ax.zip) | 待机分组、后台运行与唤醒锁管控，通讯应用白名单豁免 | `standby bucket` `WAKE_LOCK` `白名单` |
+| [**game_gpu_tune_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/game_gpu_tune_ax.zip) | 识别已安装游戏并做 AOT 编译与豁免，配合刷新率与温控策略 | `speed 编译` `自动识别` `刷新率` |
+| [**system_ui_tweak_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/system_ui_tweak_ax.zip) | 沉浸全屏、显示密度、导航栏布局与状态栏微调，全部可逆 | `immersive` `wm density` `nav_bar` |
 
 ### ✨ 新增玩法
 
 | 模块 | 说明 | 技术点 |
 |------|------|--------|
-| [**app_ops_manager_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/app_ops_manager_ax.zip) | 基于 appops 对单个应用的单项操作授权进行查询、拒绝与恢复 | `appops` `单项管控` `操作名速查` |
-| [**auto_input_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/auto_input_ax.zip) | 文本输入、按键事件、坐标点击与滑动，实现免 root 的简易自动化 | `input text` `keyevent` `tap/swipe` |
-| [**battery_guardian_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/battery_guardian_ax.zip) | 省电阈值、自适应电池、唤醒锁与待机分组组合的续航方案 | `low_power` `WAKE_LOCK` `batterystats` |
-| [**device_info_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/device_info_ax.zip) | 只读汇总机型、系统、硬件、电池与运行环境信息，可导出存档 | `只读` `getprop` `传感器` |
-| [**quick_settings_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/quick_settings_ax.zip) | Wi-Fi / 数据 / 蓝牙 / NFC / 飞行模式 / 旋转等系统开关集中控制 | `svc` `飞行模式` `自动旋转` |
-| [**thermal_monitor_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/thermal_monitor_ax.zip) | 读取真实温区温度与节流状态，支持手动覆盖节流档位 | `thermalservice` `温区读取` `节流覆盖` |
-| [**traffic_stats_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.0.0/traffic_stats_ax.zip) | 接口级流量统计、实时速率与按 UID 用量排行（统计无法重置） | `/proc/net/dev` `netstats` `实时速率` |
+| [**app_ops_manager_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/app_ops_manager_ax.zip) | 基于 appops 对单个应用的单项操作授权进行查询、拒绝与恢复 | `appops` `单项管控` `操作名速查` |
+| [**auto_input_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/auto_input_ax.zip) | 文本输入、按键事件、坐标点击与滑动，实现免 root 的简易自动化 | `input text` `keyevent` `tap/swipe` |
+| [**battery_guardian_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/battery_guardian_ax.zip) | 省电阈值、自适应电池、唤醒锁与待机分组组合的续航方案 | `low_power` `WAKE_LOCK` `batterystats` |
+| [**device_info_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/device_info_ax.zip) | 只读汇总机型、系统、硬件、电池与运行环境信息，可导出存档 | `只读` `getprop` `传感器` |
+| [**quick_settings_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/quick_settings_ax.zip) | Wi-Fi / 数据 / 蓝牙 / NFC / 飞行模式 / 旋转等系统开关集中控制 | `svc` `飞行模式` `自动旋转` |
+| [**thermal_monitor_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/thermal_monitor_ax.zip) | 读取真实温区温度与节流状态，支持手动覆盖节流档位 | `thermalservice` `温区读取` `节流覆盖` |
+| [**traffic_stats_ax**](https://github.com/AceGuru-mjh/Axmanager-modle/releases/download/v2.1.0/traffic_stats_ax.zip) | 接口级流量统计、实时速率与按 UID 用量排行（统计无法重置） | `/proc/net/dev` `netstats` `实时速率` |
 
 <!-- PLUGINS:END -->
 

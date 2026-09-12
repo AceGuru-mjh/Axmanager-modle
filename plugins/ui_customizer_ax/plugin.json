@@ -1,0 +1,144 @@
+{
+  "id": "ui_customizer_ax",
+  "name": "界面定制",
+  "version": "2.0.0",
+  "versionCode": 20,
+  "author": "MJH",
+  "axeronPlugin": 1,
+  "category": "显示与音频",
+  "summary": "状态栏图标显隐、字号与字重、暗色模式与通知音效选择，全部可逆",
+  "description": "免root界面定制 状态栏系统图标逐项显隐icon_blacklist 字号font_scale与字重 高对比文字 暗色模式ui_night_mode 扫描设备已索引音设为通知/铃声/闹钟 电量百分比与时钟秒 一键回滚",
+  "subtitle": "状态栏 · 字体 · 暗色 · 音效",
+  "accent": "#f472b6",
+  "accent2": "#a855f7",
+  "chips": ["icon_blacklist", "font_scale", "ui_night_mode", "音效选择"],
+  "ui": {
+    "profileId": "profile",
+    "sections": [
+      {
+        "type": "note",
+        "heading": "能力说明",
+        "text": "字体仅支持调整大小、粗细与高对比，替换字体文件需要 root；状态栏图标只能控制系统自带图标的显示与隐藏，无法自定义图标图形。部分 ROM 会忽略图标隐藏设置，切换后若开关自动弹回即表示本机不支持。"
+      },
+      {
+        "type": "metrics",
+        "title": "当前状态",
+        "verb": "status",
+        "interval": 6000,
+        "fields": [
+          { "key": "font", "label": "字号", "icon": "🔠" },
+          { "key": "weight", "label": "字重", "icon": "🖋" },
+          { "key": "night", "label": "暗色模式", "icon": "🌙" },
+          { "key": "hidden", "label": "已隐藏图标", "icon": "🚫" }
+        ]
+      },
+      {
+        "type": "profiles",
+        "title": "字体显示",
+        "id": "profile",
+        "value": "standard",
+        "items": [
+          {
+            "id": "compact",
+            "icon": "🔍",
+            "title": "紧凑",
+            "desc": "小字号，单屏显示更多内容",
+            "tags": ["字号 0.85", "标准对比度"]
+          },
+          {
+            "id": "standard",
+            "icon": "🔠",
+            "title": "标准",
+            "desc": "系统默认字号与对比度",
+            "tags": ["字号 1.0", "标准对比度"]
+          },
+          {
+            "id": "large",
+            "icon": "🔎",
+            "title": "大字",
+            "desc": "放大字号并开启高对比，更易读",
+            "tags": ["字号 1.15", "高对比开启"]
+          },
+          {
+            "id": "huge",
+            "icon": "📖",
+            "title": "超大字",
+            "desc": "最大字号 + 高对比 + 加粗",
+            "tags": ["字号 1.30", "高对比开启", "字重 700"]
+          }
+        ]
+      },
+      {
+        "type": "input",
+        "title": "自定义字号",
+        "id": "fs",
+        "label": "字号数值",
+        "hint": "填浮点数，如 0.85 / 1.0 / 1.15 / 1.30",
+        "placeholder": "1.15",
+        "verb": "fontscale",
+        "buttonLabel": "设置字号",
+        "required": true
+      },
+      {
+        "type": "actions",
+        "title": "文字与暗色",
+        "items": [
+          { "icon": "🖋", "label": "字重 700", "verb": "fontweight", "args": ["700"], "showLog": false, "refresh": true },
+          { "icon": "🖋", "label": "字重 400", "verb": "fontweight", "args": ["400"], "showLog": false, "refresh": true },
+          { "icon": "◐", "label": "高对比开", "verb": "contrast", "args": ["on"], "showLog": false, "refresh": true },
+          { "icon": "◑", "label": "高对比关", "verb": "contrast", "args": ["off"], "showLog": false, "refresh": true },
+          { "icon": "🌙", "label": "深色", "verb": "night", "args": ["2"], "showLog": false, "refresh": true },
+          { "icon": "☀️", "label": "浅色", "verb": "night", "args": ["1"], "showLog": false, "refresh": true },
+          { "icon": "🔄", "label": "暗色跟随系统", "verb": "night", "args": ["0"], "showLog": false, "refresh": true },
+          { "icon": "🔍", "label": "查看全部状态", "verb": "state" }
+        ]
+      },
+      {
+        "type": "switches",
+        "title": "状态栏图标（开＝显示）",
+        "items": [
+          { "id": "ic_rotate", "label": "自动旋转", "desc": "屏幕旋转方向图标", "verb": "icon", "args": ["rotate"], "syncKey": "ic_rotate" },
+          { "id": "ic_volume", "label": "音量", "desc": "音量模式图标", "verb": "icon", "args": ["volume"], "syncKey": "ic_volume" },
+          { "id": "ic_alarm", "label": "闹钟", "desc": "已设置闹钟图标", "verb": "icon", "args": ["alarm_clock"], "syncKey": "ic_alarm_clock" },
+          { "id": "ic_bluetooth", "label": "蓝牙", "desc": "蓝牙连接状态图标", "verb": "icon", "args": ["bluetooth"], "syncKey": "ic_bluetooth" },
+          { "id": "ic_location", "label": "定位", "desc": "位置服务使用图标", "verb": "icon", "args": ["location"], "syncKey": "ic_location" },
+          { "id": "ic_zen", "label": "勿扰", "desc": "免打扰模式图标", "verb": "icon", "args": ["zen"], "syncKey": "ic_zen" },
+          { "id": "ic_hotspot", "label": "热点", "desc": "网络共享图标", "verb": "icon", "args": ["hotspot"], "syncKey": "ic_hotspot" },
+          { "id": "ic_nfc", "label": "NFC", "desc": "NFC 开启图标", "verb": "icon", "args": ["nfc"], "syncKey": "ic_nfc" },
+          { "id": "ic_cast", "label": "投射", "desc": "屏幕投射图标", "verb": "icon", "args": ["cast"], "syncKey": "ic_cast" },
+          { "id": "ic_vpn", "label": "VPN", "desc": "VPN 连接图标", "verb": "icon", "args": ["vpn"], "syncKey": "ic_vpn" },
+          { "id": "ic_data_saver", "label": "流量节省", "desc": "省流量模式图标", "verb": "icon", "args": ["data_saver"], "syncKey": "ic_data_saver" },
+          { "id": "ic_headset", "label": "耳机", "desc": "耳机接入图标", "verb": "icon", "args": ["headset"], "syncKey": "ic_headset" }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "图标批量操作",
+        "items": [
+          { "icon": "🚫", "label": "隐藏全部", "verb": "iconhideall", "confirm": "将隐藏全部可控制的状态栏系统图标，可能会影响部分状态提示。可随时点「全部恢复」还原。", "refresh": true },
+          { "icon": "✅", "label": "全部恢复", "verb": "iconshowall", "refresh": true },
+          { "icon": "📋", "label": "图标清单", "verb": "icons" }
+        ]
+      },
+      {
+        "type": "actions",
+        "title": "状态栏附加",
+        "items": [
+          { "icon": "🔋", "label": "显示电量%", "verb": "battpct", "args": ["on"], "showLog": false, "refresh": true },
+          { "icon": "🔋", "label": "隐藏电量%", "verb": "battpct", "args": ["off"], "showLog": false, "refresh": true },
+          { "icon": "⏱", "label": "时钟显秒", "verb": "clocksec", "args": ["on"], "showLog": false, "refresh": true },
+          { "icon": "⏱", "label": "时钟隐秒", "verb": "clocksec", "args": ["off"], "showLog": false, "refresh": true }
+        ]
+      },
+      {
+        "type": "list",
+        "title": "通知音效（点击设置）",
+        "verb": "tones",
+        "clickVerb": "settone",
+        "clickLabel": "正在设为通知音…",
+        "limit": 40,
+        "empty": "未扫描到可用音效。请把音频放入 /sdcard/Music 或 /sdcard/Notifications 后重启设备完成索引，再点上方刷新。"
+      }
+    ]
+  }
+}

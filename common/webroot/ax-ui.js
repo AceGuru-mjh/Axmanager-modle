@@ -473,9 +473,22 @@
                         state[it.id] = on;
                         haptic(10);
                         if (it.verb) {
-                            run({ verb: it.verb, args: [on ? 'on' : 'off'], busyLabel: it.label });
+                            // 向后兼容：未声明 args 时仍只传 on/off
+                            var a = (it.args ? it.args.concat([on ? 'on' : 'off']) : [on ? 'on' : 'off']);
+                            run({
+                                verb: it.verb, args: a, busyLabel: it.label,
+                                then: function () { if (it.syncKey) refreshAll(); }
+                            });
                         }
                     };
+                    // 可选：由 status 轮询同步设备真实状态（仅同步视觉，不触发动词）
+                    if (it.syncKey) {
+                        var tgt = { el: sw, id: it.id, key: it.syncKey, invert: !!it.invert };
+                        syncTargets.push(tgt);
+                        if (lastStatus && lastStatus[it.syncKey] !== undefined) {
+                            applySyncOne(tgt, lastStatus);
+                        }
+                    }
                     r.appendChild(sw);
                     box.appendChild(r);
                 });
@@ -542,6 +555,28 @@
     /* ---------------------------------------------------- 监控轮询 / 列表 */
     var polls = [];
 
+    /* status 轮询结果缓存 + 开关同步目标表。
+       仅当 switch 声明了 syncKey 时才会注册，不影响既有插件。 */
+    var lastStatus = null;
+    var syncTargets = [];
+
+    function syncTruthy(v) {
+        if (v === true) return true;
+        var s = String(v == null ? '' : v).trim().toLowerCase();
+        return s === '1' || s === 'true' || s === 'on' || s === 'yes' || s === 'shown';
+    }
+
+    function applySyncOne(tgt, data) {
+        var v = syncTruthy(data[tgt.key]);
+        var on = tgt.invert ? !v : v;
+        tgt.el.classList.toggle('on', on);
+        state[tgt.id] = on;
+    }
+
+    function applySync(data) {
+        syncTargets.forEach(function (t) { applySyncOne(t, data); });
+    }
+
     function registerPoll(sec, node) {
         function tick() {
             return call(sec.verb || 'status').then(function (r) {
@@ -558,6 +593,8 @@
                         bar.style.width = pct + '%';
                     }
                 });
+                lastStatus = data;
+                applySync(data);
             });
         }
         polls.push(tick);
@@ -577,15 +614,30 @@
                     node.innerHTML = '<div class="ax-empty">' + esc(sec.empty || '暂无数据') + '</div>';
                     return;
                 }
-                node.innerHTML = lines.slice(0, sec.limit || 200).map(function (l) {
-                    // 约定格式： 标题 | 副标题 | 徽标 | 徽标类型
+                node.innerHTML = '';
+                // 约定格式： 标题 | 副标题 | 徽标 | 徽标类型 | 点击载荷
+                lines.slice(0, sec.limit || 200).forEach(function (l) {
                     var p = l.split('|');
+                    var row = el('div', 'ax-li' + (sec.clickVerb ? ' ax-li-tap' : ''));
                     var pill = p[2] ? '<span class="ax-pill ' + esc((p[3] || 'dim').trim()) + '">'
                         + esc(p[2].trim()) + '</span>' : '';
-                    return '<div class="ax-li"><div class="ax-li-txt"><div class="ax-li-t">' + esc((p[0] || '').trim())
+                    row.innerHTML = '<div class="ax-li-txt"><div class="ax-li-t">' + esc((p[0] || '').trim())
                         + '</div>' + (p[1] ? '<div class="ax-li-d">' + esc(p[1].trim()) + '</div>' : '')
-                        + '</div>' + pill + '</div>';
-                }).join('');
+                        + '</div>' + pill;
+                    if (sec.clickVerb) {
+                        // 载荷缺省用第 1 段（标题），旧格式无需改动即可兼容
+                        var payload = (p[4] !== undefined ? p[4] : (p[0] || '')).trim();
+                        row.onclick = function () {
+                            haptic(8);
+                            run({
+                                verb: sec.clickVerb,
+                                args: payload ? payload.split(/\s+/) : [],
+                                busyLabel: sec.clickLabel || '正在设置…'
+                            });
+                        };
+                    }
+                    node.appendChild(row);
+                });
             });
         }
         polls.push(load);
